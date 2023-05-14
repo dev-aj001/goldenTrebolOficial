@@ -49,17 +49,17 @@ public class Proveedores extends javax.swing.JPanel {
 
         panelShadow1 = new swing.PanelShadow();
         roundPanel1 = new swing.RoundPanel();
-        txtNombre = new swing.TextField();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        txtCorreo = new swing.TextField();
         jLabel3 = new javax.swing.JLabel();
-        txtRFC = new swing.TextField();
         jLabel4 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        txtTelefono = new swing.TextField();
         jLabel5 = new javax.swing.JLabel();
         txtId = new swing.TextField();
+        txtNombre = new javax.swing.JTextField();
+        txtRFC = new javax.swing.JTextField();
+        txtCorreo1 = new javax.swing.JTextField();
+        txtTelefono1 = new javax.swing.JTextField();
         btnGuardar = new javax.swing.JButton();
         roundPanel2 = new swing.RoundPanel();
         jLabel9 = new javax.swing.JLabel();
@@ -73,89 +73,38 @@ public class Proveedores extends javax.swing.JPanel {
         panelShadow1.setBackground(new java.awt.Color(153, 153, 153));
 
         roundPanel1.setBackground(new java.awt.Color(255, 195, 0));
+        roundPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel1.setText("Nombre");
+        roundPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 89, 22));
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel2.setText("Correo");
+        roundPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, 89, -1));
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel3.setText("Telefono");
+        roundPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 170, 89, -1));
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel4.setText("RFC");
+        roundPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 219, 89, 25));
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel8.setText("Datos del proveedor");
+        roundPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 12, -1, -1));
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel5.setText("ID");
+        roundPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 56, 89, 34));
 
         txtId.setEditable(false);
-
-        javax.swing.GroupLayout roundPanel1Layout = new javax.swing.GroupLayout(roundPanel1);
-        roundPanel1.setLayout(roundPanel1Layout);
-        roundPanel1Layout.setHorizontalGroup(
-            roundPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(roundPanel1Layout.createSequentialGroup()
-                .addGroup(roundPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(roundPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel8))
-                    .addGroup(roundPanel1Layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addGroup(roundPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(roundPanel1Layout.createSequentialGroup()
-                                .addGroup(roundPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(roundPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txtRFC, javax.swing.GroupLayout.DEFAULT_SIZE, 132, Short.MAX_VALUE)
-                                    .addComponent(txtTelefono, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                            .addGroup(roundPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(roundPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(roundPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        roundPanel1Layout.setVerticalGroup(
-            roundPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, roundPanel1Layout.createSequentialGroup()
-                .addGap(12, 12, 12)
-                .addComponent(jLabel8)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(roundPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(roundPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(roundPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(roundPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(roundPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtRFC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(574, 574, 574))
-        );
+        roundPanel1.add(txtId, new org.netbeans.lib.awtextra.AbsoluteConstraints(101, 56, 132, -1));
+        roundPanel1.add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 100, 140, -1));
+        roundPanel1.add(txtRFC, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 220, 140, -1));
+        roundPanel1.add(txtCorreo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 130, 140, -1));
+        roundPanel1.add(txtTelefono1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 170, 140, -1));
 
         btnGuardar.setText("Guardar");
         btnGuardar.addActionListener(new java.awt.event.ActionListener() {
@@ -265,8 +214,8 @@ public class Proveedores extends javax.swing.JPanel {
             Proveedor mProv = new Proveedor();
             //mProv.setIdUsuario(txt.getText());
             mProv.setNombre(txtNombre.getText());
-            mProv.setCorreo(txtCorreo.getText());
-            mProv.setTelefono(txtTelefono.getText());
+            mProv.setCorreo(txtRFC.getText());
+            mProv.setTelefono(txtRFC.getText());
             mProv.setRFC(txtRFC.getText());
             
             System.out.println(mProv.toString());
@@ -287,8 +236,8 @@ public class Proveedores extends javax.swing.JPanel {
     private void tablaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaMouseClicked
         txtId.setText(tbm.getValueAt(tabla.getSelectedRow(), 0).toString());
         txtNombre.setText(tbm.getValueAt(tabla.getSelectedRow(), 1).toString());
-        txtCorreo.setText(tbm.getValueAt(tabla.getSelectedRow(), 2).toString());
-        txtTelefono.setText(tbm.getValueAt(tabla.getSelectedRow(), 3).toString());
+        txtRFC.setText(tbm.getValueAt(tabla.getSelectedRow(), 2).toString());
+        txtRFC.setText(tbm.getValueAt(tabla.getSelectedRow(), 3).toString());
         txtRFC.setText(tbm.getValueAt(tabla.getSelectedRow(), 4).toString());
     }//GEN-LAST:event_tablaMouseClicked
 
@@ -314,8 +263,8 @@ public class Proveedores extends javax.swing.JPanel {
                 if(mDB.Conectar()){
                     Proveedor mProveedor= new Proveedor();
                     mProveedor.setNombre(txtNombre.getText().trim());
-                    mProveedor.setCorreo(txtCorreo.getText().trim());
-                    mProveedor.setTelefono(txtTelefono.getText());
+                    mProveedor.setCorreo(txtRFC.getText().trim());
+                    mProveedor.setTelefono(txtRFC.getText());
                     mProveedor.setRFC(txtRFC.getText());
                     mProveedor.setIdProveedor(Integer.parseInt(txtId.getText()));
                     mDB.ModificarProveedor(mProveedor);
@@ -375,8 +324,8 @@ public class Proveedores extends javax.swing.JPanel {
     private void LimpiarTxt(){
         txtNombre.setText("");
         txtRFC.setText("");
-        txtTelefono.setText("");
-        txtCorreo.setText("");
+        txtRFC.setText("");
+        txtRFC.setText("");
     }
     
     private boolean validarTxt(){
@@ -385,7 +334,7 @@ public class Proveedores extends javax.swing.JPanel {
             return false;
         }else{
             Validar v = new Validar();
-            if(v.RFC(txtRFC.getText()) && v.Email(txtCorreo.getText())){
+            if(v.RFC(txtRFC.getText()) && v.Email(txtRFC.getText())){
                 return true;
             }else{
                 JOptionPane.showMessageDialog(null, "Algun dato erroneo");
@@ -396,7 +345,7 @@ public class Proveedores extends javax.swing.JPanel {
     }
     
     private boolean esVacio(){
-        return(txtNombre.getText().isBlank()||txtCorreo.getText().isBlank()||txtTelefono.getText().isBlank()||txtRFC.getText().isBlank());
+        return(txtNombre.getText().isBlank()||txtRFC.getText().isBlank()||txtRFC.getText().isBlank()||txtRFC.getText().isBlank());
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -415,10 +364,10 @@ public class Proveedores extends javax.swing.JPanel {
     private swing.RoundPanel roundPanel1;
     private swing.RoundPanel roundPanel2;
     private javax.swing.JTable tabla;
-    private swing.TextField txtCorreo;
+    private javax.swing.JTextField txtCorreo1;
     private swing.TextField txtId;
-    private swing.TextField txtNombre;
-    private swing.TextField txtRFC;
-    private swing.TextField txtTelefono;
+    private javax.swing.JTextField txtNombre;
+    private javax.swing.JTextField txtRFC;
+    private javax.swing.JTextField txtTelefono1;
     // End of variables declaration//GEN-END:variables
 }
