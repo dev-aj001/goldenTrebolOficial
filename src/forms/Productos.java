@@ -66,35 +66,33 @@ public class Productos extends javax.swing.JPanel {
         btnGroup1 = new javax.swing.ButtonGroup();
         panelShadow1 = new swing.PanelShadow();
         roundPanel1 = new swing.RoundPanel();
-        jLabel1 = new javax.swing.JLabel();
+        lblCodigo = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         txtCodigo = new javax.swing.JTextField();
         txtDescripcion = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
         lblCosto = new javax.swing.JLabel();
-        jSeparator1 = new javax.swing.JSeparator();
         btnGranel = new javax.swing.JRadioButton();
         btnPieza = new javax.swing.JRadioButton();
-        jLabel14 = new javax.swing.JLabel();
+        lblDescripcion = new javax.swing.JLabel();
         lblVenta = new javax.swing.JLabel();
         spnCosto = new javax.swing.JSpinner();
         spnVenta = new javax.swing.JSpinner();
-        lblGanancia = new javax.swing.JLabel();
         spnGanancia = new javax.swing.JSpinner();
-        lblGanancia1 = new javax.swing.JLabel();
-        lblGanancia2 = new javax.swing.JLabel();
-        lblGanancia3 = new javax.swing.JLabel();
-        spnMinimo = new javax.swing.JSpinner();
-        spnCantidad = new javax.swing.JSpinner();
+        lblDepartamento = new javax.swing.JLabel();
+        lblGanancia = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
-        txtMarca = new javax.swing.JTextField();
-        lblGanancia4 = new javax.swing.JLabel();
+        txtCaducidad = new javax.swing.JTextField();
         cmbDepartamento = new javax.swing.JComboBox<>();
+        jLabel16 = new javax.swing.JLabel();
+        txtMarca1 = new javax.swing.JTextField();
         btnGuardar = new javax.swing.JButton();
         roundPanel2 = new swing.RoundPanel();
         jLabel9 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabla = new javax.swing.JTable();
+        jTextField1 = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
         btnModificar = new javax.swing.JButton();
 
@@ -105,19 +103,19 @@ public class Productos extends javax.swing.JPanel {
         roundPanel1.setBackground(new java.awt.Color(255, 195, 0));
         roundPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel1.setText("Codigo");
-        roundPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 60, 20));
+        lblCodigo.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblCodigo.setText("Codigo*");
+        roundPanel1.add(lblCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 60, 20));
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel8.setText("Datos del producto");
         roundPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
 
         txtCodigo.setToolTipText("Codigo:\nCodigo de barras o Codigo de identificacion del producto");
-        roundPanel1.add(txtCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 70, 210, -1));
+        roundPanel1.add(txtCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 60, 210, -1));
 
         txtDescripcion.setToolTipText("Descripcion del producto.\nDescribe aqui el nombre, tamaño, y otros aspectos que decriban el producto");
-        roundPanel1.add(txtDescripcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 100, 210, -1));
+        roundPanel1.add(txtDescripcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 90, 210, -1));
 
         jLabel12.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel12.setText("Se vende por:");
@@ -127,9 +125,6 @@ public class Productos extends javax.swing.JPanel {
         lblCosto.setText("Precio costo    $");
         roundPanel1.add(lblCosto, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 230, 90, 20));
 
-        jSeparator1.setForeground(new java.awt.Color(51, 51, 51));
-        roundPanel1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 330, 300, 10));
-
         btnGranel.setText("Por granel ");
         btnGranel.setToolTipText("Por granel:\nSi habilita, este producto se vendera por granel (Kilo, Gramo, Litros, Metros)");
         btnGranel.addActionListener(new java.awt.event.ActionListener() {
@@ -137,15 +132,15 @@ public class Productos extends javax.swing.JPanel {
                 btnGranelActionPerformed(evt);
             }
         });
-        roundPanel1.add(btnGranel, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 190, -1, -1));
+        roundPanel1.add(btnGranel, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 180, -1, -1));
 
         btnPieza.setText("Por pieza (Pz.)");
         btnPieza.setToolTipText("Por pieza:\nSi selecciona, el producto se vendera por pieza (unidades enteras).");
-        roundPanel1.add(btnPieza, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 190, -1, -1));
+        roundPanel1.add(btnPieza, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 180, -1, -1));
 
-        jLabel14.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel14.setText("Descripción");
-        roundPanel1.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 80, 20));
+        lblDescripcion.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblDescripcion.setText("Descripción*");
+        roundPanel1.add(lblDescripcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 80, 20));
 
         lblVenta.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         lblVenta.setText("Precio venta    $");
@@ -176,10 +171,6 @@ public class Productos extends javax.swing.JPanel {
         });
         roundPanel1.add(spnVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 260, 80, -1));
 
-        lblGanancia.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        lblGanancia.setText("Almacen de producto");
-        roundPanel1.add(lblGanancia, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 340, 180, 20));
-
         spnGanancia.setModel(new javax.swing.SpinnerNumberModel(10.0d, null, null, 5.0d));
         spnGanancia.setAutoscrolls(true);
         spnGanancia.addChangeListener(new javax.swing.event.ChangeListener() {
@@ -189,33 +180,30 @@ public class Productos extends javax.swing.JPanel {
         });
         roundPanel1.add(spnGanancia, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 290, 80, -1));
 
-        lblGanancia1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        lblGanancia1.setText("Departamento");
-        roundPanel1.add(lblGanancia1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 460, 90, 20));
+        lblDepartamento.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblDepartamento.setText("Departamento");
+        roundPanel1.add(lblDepartamento, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 330, 90, 20));
 
-        lblGanancia2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        lblGanancia2.setText("Ganancia         %");
-        roundPanel1.add(lblGanancia2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 290, 90, 20));
-
-        lblGanancia3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        lblGanancia3.setText("Cantidad actual");
-        roundPanel1.add(lblGanancia3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 380, 90, 20));
-        roundPanel1.add(spnMinimo, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 410, 80, -1));
-        roundPanel1.add(spnCantidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 380, 80, -1));
+        lblGanancia.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblGanancia.setText("Ganancia         %");
+        roundPanel1.add(lblGanancia, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 290, 90, 20));
 
         jLabel15.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel15.setText("Marca");
-        roundPanel1.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, 80, 20));
+        jLabel15.setText("Fecah de Cad.");
+        roundPanel1.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 370, 80, 20));
 
-        txtMarca.setToolTipText("Descripcion del producto.\nDescribe aqui el nombre, tamaño, y otros aspectos que decriban el producto");
-        roundPanel1.add(txtMarca, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 130, 210, -1));
-
-        lblGanancia4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        lblGanancia4.setText("Minimo");
-        roundPanel1.add(lblGanancia4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 410, 90, 20));
+        txtCaducidad.setToolTipText("Descripcion del producto.\nDescribe aqui el nombre, tamaño, y otros aspectos que decriban el producto");
+        roundPanel1.add(txtCaducidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 370, 210, -1));
 
         cmbDepartamento.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Dulceria", "Jugeteria", "Decorativos" }));
-        roundPanel1.add(cmbDepartamento, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 460, 150, -1));
+        roundPanel1.add(cmbDepartamento, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 330, 150, -1));
+
+        jLabel16.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel16.setText("Marca");
+        roundPanel1.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, 80, 20));
+
+        txtMarca1.setToolTipText("Descripcion del producto.\nDescribe aqui el nombre, tamaño, y otros aspectos que decriban el producto");
+        roundPanel1.add(txtMarca1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 120, 210, -1));
 
         btnGuardar.setText("Agregar");
         btnGuardar.addActionListener(new java.awt.event.ActionListener() {
@@ -245,6 +233,8 @@ public class Productos extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(tabla);
 
+        jButton1.setText("Buscar");
+
         javax.swing.GroupLayout roundPanel2Layout = new javax.swing.GroupLayout(roundPanel2);
         roundPanel2.setLayout(roundPanel2Layout);
         roundPanel2Layout.setHorizontalGroup(
@@ -252,20 +242,27 @@ public class Productos extends javax.swing.JPanel {
             .addGroup(roundPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(roundPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 761, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 763, Short.MAX_VALUE)
                     .addGroup(roundPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton1)))
                 .addContainerGap())
         );
         roundPanel2Layout.setVerticalGroup(
             roundPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(roundPanel2Layout.createSequentialGroup()
                 .addGap(12, 12, 12)
-                .addComponent(jLabel9)
+                .addGroup(roundPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel9)
+                    .addGroup(roundPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jTextField1)
+                        .addComponent(jButton1)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 427, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18))
         );
 
         btnEliminar.setText("Eliminar");
@@ -290,7 +287,7 @@ public class Productos extends javax.swing.JPanel {
                 .addGap(20, 20, 20)
                 .addGroup(panelShadow1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelShadow1Layout.createSequentialGroup()
-                        .addComponent(roundPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(roundPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 325, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(roundPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(20, 20, 20))
@@ -325,7 +322,7 @@ public class Productos extends javax.swing.JPanel {
             Producto mProducto = new Producto();
             mProducto.setCodigo(txtCodigo.getText());
             mProducto.setDescripcion(txtDescripcion.getText());
-            mProducto.setMarca(txtMarca.getText());
+            mProducto.setMarca(txtCaducidad.getText());
             mProducto.setPrecioCom((Double)spnCosto.getValue());
             mProducto.setPrecioVen((Double)spnVenta.getValue());
             mProducto.setDepartameto(cmbDepartamento.getSelectedItem().toString());
@@ -347,7 +344,7 @@ public class Productos extends javax.swing.JPanel {
     private void tablaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaMouseClicked
         txtCodigo.setText(tbm.getValueAt(tabla.getSelectedRow(), 0).toString());
         txtDescripcion.setText(tbm.getValueAt(tabla.getSelectedRow(), 1).toString());
-        txtMarca.setText(tbm.getValueAt(tabla.getSelectedRow(), 2).toString());
+        txtCaducidad.setText(tbm.getValueAt(tabla.getSelectedRow(), 2).toString());
         spnCosto.setValue(Double.valueOf(tbm.getValueAt(tabla.getSelectedRow(), 3).toString()));
         spnVenta.setValue(Double.valueOf(tbm.getValueAt(tabla.getSelectedRow(), 4).toString()));
         
@@ -390,7 +387,7 @@ public class Productos extends javax.swing.JPanel {
                     Producto mProduc= new Producto();
                     mProduc.setCodigo(txtCodigo.getText());
                     mProduc.setDescripcion(txtDescripcion.getText());
-                    mProduc.setMarca(txtMarca.getText());
+                    mProduc.setMarca(txtCaducidad.getText());
                     mProduc.setPrecioCom((Double)spnCosto.getValue());
                     mProduc.setPrecioVen((Double)spnVenta.getValue());
                     mProduc.setDepartameto(cmbDepartamento.getSelectedItem().toString());
@@ -456,7 +453,7 @@ public class Productos extends javax.swing.JPanel {
     }
     
     private boolean esVacio(){
-        return((txtCodigo.getText().isBlank()||txtDescripcion.getText().isBlank()||txtMarca.getText().isBlank()));
+        return((txtCodigo.getText().isBlank()||txtDescripcion.getText().isBlank()||txtCaducidad.getText().isBlank()));
     }
     
     private void CargarProductos(){
@@ -507,7 +504,7 @@ public class Productos extends javax.swing.JPanel {
     private void LimpiarTxt(){
         txtCodigo.setText("");
         txtDescripcion.setText("");
-        txtMarca.setText("");
+        txtCaducidad.setText("");
         spnCosto.setValue(0);
         spnVenta.setValue(0);
         spnGanancia.setValue(0);
@@ -523,32 +520,30 @@ public class Productos extends javax.swing.JPanel {
     private javax.swing.JButton btnModificar;
     private javax.swing.JRadioButton btnPieza;
     private javax.swing.JComboBox<String> cmbDepartamento;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JTextField jTextField1;
+    private javax.swing.JLabel lblCodigo;
     private javax.swing.JLabel lblCosto;
+    private javax.swing.JLabel lblDepartamento;
+    private javax.swing.JLabel lblDescripcion;
     private javax.swing.JLabel lblGanancia;
-    private javax.swing.JLabel lblGanancia1;
-    private javax.swing.JLabel lblGanancia2;
-    private javax.swing.JLabel lblGanancia3;
-    private javax.swing.JLabel lblGanancia4;
     private javax.swing.JLabel lblVenta;
     private swing.PanelShadow panelShadow1;
     private swing.RoundPanel roundPanel1;
     private swing.RoundPanel roundPanel2;
-    private javax.swing.JSpinner spnCantidad;
     private javax.swing.JSpinner spnCosto;
     private javax.swing.JSpinner spnGanancia;
-    private javax.swing.JSpinner spnMinimo;
     private javax.swing.JSpinner spnVenta;
     private javax.swing.JTable tabla;
+    private javax.swing.JTextField txtCaducidad;
     private javax.swing.JTextField txtCodigo;
     private javax.swing.JTextField txtDescripcion;
-    private javax.swing.JTextField txtMarca;
+    private javax.swing.JTextField txtMarca1;
     // End of variables declaration//GEN-END:variables
 }
