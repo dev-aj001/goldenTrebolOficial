@@ -42,7 +42,7 @@ public class Main extends javax.swing.JFrame {
                 }else if(index==4){
                     showForm(new Almacen());
                 }else if(index==5){
-                    showForm(new Configuracion());
+                    showForm(new Configuracion(user));
                 }
             }
         };

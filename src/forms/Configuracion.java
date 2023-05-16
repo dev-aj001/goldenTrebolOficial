@@ -13,12 +13,12 @@ import javax.swing.JOptionPane;
  */
 public class Configuracion extends javax.swing.JPanel {
 
-    /**
-     * Creates new form Configuracion
-     */
-    public Configuracion() {
+    private static String user;
+    
+    public Configuracion(String user) {
         initComponents();
         setOpaque(false);
+        this.user = user;
     }
 
     /**
@@ -62,6 +62,10 @@ public class Configuracion extends javax.swing.JPanel {
         jSeparator2 = new javax.swing.JSeparator();
         rbtnSiVenta = new javax.swing.JRadioButton();
         rbtnNoVenta = new javax.swing.JRadioButton();
+        jLabel16 = new javax.swing.JLabel();
+        jLabel17 = new javax.swing.JLabel();
+        lblGanancia = new javax.swing.JLabel();
+        spnGanancia = new javax.swing.JSpinner();
         jPanel3 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
@@ -144,9 +148,8 @@ public class Configuracion extends javax.swing.JPanel {
                                     .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(txtTelefono2, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(txtSucursal, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(txtSucursal, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap(451, Short.MAX_VALUE))
         );
@@ -212,6 +215,22 @@ public class Configuracion extends javax.swing.JPanel {
 
         rbtnNoVenta.setText("No");
 
+        jLabel16.setText("Porcentaje por defecto de ganancia:");
+
+        jLabel17.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel17.setText("Ganancia de venta");
+
+        lblGanancia.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblGanancia.setText("Ganancia         %");
+
+        spnGanancia.setModel(new javax.swing.SpinnerNumberModel(10.0d, 0.0d, null, 5.0d));
+        spnGanancia.setAutoscrolls(true);
+        spnGanancia.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                spnGananciaStateChanged(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -226,7 +245,13 @@ public class Configuracion extends javax.swing.JPanel {
                         .addComponent(rbtnSiVenta)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(rbtnNoVenta))
-                    .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(lblGanancia, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(10, 10, 10)
+                        .addComponent(spnGanancia, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(696, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -244,7 +269,15 @@ public class Configuracion extends javax.swing.JPanel {
                     .addComponent(rbtnNoVenta))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(279, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel16)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblGanancia, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(spnGanancia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(179, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Venta", jPanel2);
@@ -383,12 +416,23 @@ public class Configuracion extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-        
+        Credenciales credencial = new Credenciales(user);
+        if(JOptionPane.showConfirmDialog(null, "Desea aplicar los cambios en la configuración?" ,"Aplicar",JOptionPane.WARNING_MESSAGE,JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
+           credencial.setVisible(true);
+           if(credencial.getOK()){
+               
+           }
+        }
+        //credencial.dispose();
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void rbtnNoAlmacenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtnNoAlmacenActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_rbtnNoAlmacenActionPerformed
+
+    private void spnGananciaStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spnGananciaStateChanged
+        
+    }//GEN-LAST:event_spnGananciaStateChanged
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -402,6 +446,8 @@ public class Configuracion extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
@@ -421,12 +467,14 @@ public class Configuracion extends javax.swing.JPanel {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JLabel lblGanancia;
     private swing.PanelShadow panelShadow1;
     private javax.swing.JRadioButton rbtnNoAlmacen;
     private javax.swing.JRadioButton rbtnNoVenta;
     private javax.swing.JRadioButton rbtnSiAlamcen;
     private javax.swing.JRadioButton rbtnSiVenta;
     private swing.RoundPanel roundPanel2;
+    private javax.swing.JSpinner spnGanancia;
     private javax.swing.JTextField txtCorreo;
     private javax.swing.JTextField txtDataBase;
     private javax.swing.JTextField txtDireccion;
