@@ -172,7 +172,10 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_header1MouseDragged
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        
+        //Cerrar aplicacion
+    if(JOptionPane.showConfirmDialog(null, "Desea cerrar sesión y salir al escritorio?" ,"Si, Salir",JOptionPane.WARNING_MESSAGE,JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
+        System.exit(0);
+    }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**

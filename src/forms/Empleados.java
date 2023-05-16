@@ -62,11 +62,13 @@ public class Empleados extends javax.swing.JPanel {
         lblApellidos = new javax.swing.JLabel();
         txtApellido = new javax.swing.JTextField();
         lblEdad = new javax.swing.JLabel();
-        txtEdad = new javax.swing.JTextField();
         lblRFC = new javax.swing.JLabel();
-        txtRFC = new javax.swing.JTextField();
-        txtTelefono = new javax.swing.JTextField();
         lblTelefono = new javax.swing.JLabel();
+        txtRFC = new javax.swing.JTextField();
+        spnEdad = new javax.swing.JSpinner();
+        txtTelefono = new javax.swing.JFormattedTextField();
+        jSeparator1 = new javax.swing.JSeparator();
+        lblTelefono1 = new javax.swing.JLabel();
         btnGuardar = new javax.swing.JButton();
         roundPanel2 = new swing.RoundPanel();
         jLabel9 = new javax.swing.JLabel();
@@ -84,13 +86,16 @@ public class Empleados extends javax.swing.JPanel {
         roundPanel1.setBackground(new java.awt.Color(255, 195, 0));
         roundPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        txtPass1.setToolTipText("Confirmar la contraseña");
         txtPass1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtPass1ActionPerformed(evt);
             }
         });
-        roundPanel1.add(txtPass1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 410, 140, -1));
-        roundPanel1.add(txtPass2, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 360, 140, -1));
+        roundPanel1.add(txtPass1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 430, 140, -1));
+
+        txtPass2.setToolTipText("Contraseña de la cuenta del usuario");
+        roundPanel1.add(txtPass2, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 390, 140, -1));
 
         lblNombre.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         lblNombre.setText("Nombre*");
@@ -102,8 +107,10 @@ public class Empleados extends javax.swing.JPanel {
 
         lblUsuario.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         lblUsuario.setText("Usuario*");
-        roundPanel1.add(lblUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 320, 89, 25));
-        roundPanel1.add(txtUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 310, 140, -1));
+        roundPanel1.add(lblUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 360, 89, 25));
+
+        txtUser.setToolTipText("Cuenta del usuario\nEl nombre de este campo será con el que\nel usuario entrará al sistema\n");
+        roundPanel1.add(txtUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 350, 140, -1));
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel8.setText("Datos del usuario");
@@ -114,62 +121,70 @@ public class Empleados extends javax.swing.JPanel {
 
         lblPass1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         lblPass1.setText("Contraseña*");
-        roundPanel1.add(lblPass1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 370, 89, 25));
+        roundPanel1.add(lblPass1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 400, 89, 25));
 
         lblPass2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         lblPass2.setText("Confirmar*");
-        roundPanel1.add(lblPass2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 420, 89, 25));
+        roundPanel1.add(lblPass2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 440, 89, 25));
 
+        txtNombre.setToolTipText("Nombre(s) real del usuario");
         txtNombre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtNombreActionPerformed(evt);
             }
         });
-        roundPanel1.add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 120, 140, 20));
+        roundPanel1.add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 120, 140, -1));
 
         lblApellidos.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         lblApellidos.setText("Apellidos");
         roundPanel1.add(lblApellidos, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 160, 80, -1));
 
+        txtApellido.setToolTipText("Apellido paterno y materno del usuario");
         txtApellido.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtApellidoActionPerformed(evt);
             }
         });
-        roundPanel1.add(txtApellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 160, 140, 20));
+        roundPanel1.add(txtApellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 160, 140, -1));
 
         lblEdad.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         lblEdad.setText("Edad");
         roundPanel1.add(lblEdad, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 200, 80, -1));
 
-        txtEdad.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtEdadActionPerformed(evt);
-            }
-        });
-        roundPanel1.add(txtEdad, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 200, 140, 20));
-
         lblRFC.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         lblRFC.setText("RFC");
         roundPanel1.add(lblRFC, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 240, 80, -1));
 
+        lblTelefono.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblTelefono.setText("Cuenta del usuario:");
+        roundPanel1.add(lblTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 330, 150, -1));
+
+        txtRFC.setToolTipText("RFC del usuario (opcional)");
         txtRFC.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtRFCActionPerformed(evt);
             }
         });
-        roundPanel1.add(txtRFC, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 240, 140, 20));
+        roundPanel1.add(txtRFC, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 240, 140, -1));
 
-        txtTelefono.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtTelefonoActionPerformed(evt);
-            }
-        });
-        roundPanel1.add(txtTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 280, 140, 20));
+        spnEdad.setModel(new javax.swing.SpinnerNumberModel(18, null, 150, 1));
+        spnEdad.setToolTipText("Edad en años del usuario");
+        roundPanel1.add(spnEdad, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 200, 140, -1));
 
-        lblTelefono.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        lblTelefono.setText("Teléfono");
-        roundPanel1.add(lblTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 280, 80, -1));
+        try {
+            txtTelefono.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###-###-####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        txtTelefono.setToolTipText("Numero telefonico del usuario");
+        roundPanel1.add(txtTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 280, 140, -1));
+
+        jSeparator1.setForeground(new java.awt.Color(102, 102, 102));
+        roundPanel1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 320, 240, 10));
+
+        lblTelefono1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblTelefono1.setText("Teléfono");
+        roundPanel1.add(lblTelefono1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 280, 80, -1));
 
         btnGuardar.setText("Guardar");
         btnGuardar.addActionListener(new java.awt.event.ActionListener() {
@@ -198,6 +213,8 @@ public class Empleados extends javax.swing.JPanel {
             }
         });
         jScrollPane1.setViewportView(tabla);
+
+        txtBuscar.setToolTipText("Buscar usuario por (nombre, edad, telefono, etc)");
 
         btnBuscar.setText("Buscar");
 
@@ -289,7 +306,7 @@ public class Empleados extends javax.swing.JPanel {
             //mUsuario.setIdUsuario(txt_nombre.getText());
             mUsuario.setNombre(txtNombre.getText());
             mUsuario.setApellidos(txtApellido.getText());
-            mUsuario.setEdad(Integer.parseInt(txtEdad.getText()));
+            mUsuario.setEdad((Integer)spnEdad.getValue());
             mUsuario.setRol(cmbRol.getSelectedItem().toString());
             mUsuario.setTelefono(txtTelefono.getText());
             mUsuario.setUser(txtUser.getText());
@@ -336,7 +353,7 @@ public class Empleados extends javax.swing.JPanel {
                     Usuario mUsuario= new Usuario();
                     mUsuario.setNombre(txtNombre.getText().trim());
                     mUsuario.setApellidos(txtApellido.getText().trim());
-                    mUsuario.setEdad(Integer.parseInt(txtEdad.getText()));
+                    mUsuario.setEdad((Integer)spnEdad.getValue());
                     mUsuario.setRol(cmbRol.getSelectedItem().toString());
                     mUsuario.setTelefono(txtTelefono.getText());
                     mUsuario.setUser(txtUser.getText());
@@ -352,7 +369,7 @@ public class Empleados extends javax.swing.JPanel {
     private void tablaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaMouseClicked
         txtNombre.setText(tbm.getValueAt(tabla.getSelectedRow(), 0).toString());
         txtApellido.setText(tbm.getValueAt(tabla.getSelectedRow(), 1).toString());
-        txtEdad.setText(tbm.getValueAt(tabla.getSelectedRow(), 2).toString());
+        spnEdad.setValue(Integer.valueOf(tbm.getValueAt(tabla.getSelectedRow(), 2).toString()));
         txtRFC.setText(tbm.getValueAt(tabla.getSelectedRow(), 3).toString());
         cmbRol.setSelectedIndex((tbm.getValueAt(tabla.getSelectedRow(), 4).toString().equals("Empleado"))?0:1);
         txtTelefono.setText(tbm.getValueAt(tabla.getSelectedRow(), 5).toString());
@@ -369,17 +386,9 @@ public class Empleados extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtApellidoActionPerformed
 
-    private void txtEdadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEdadActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtEdadActionPerformed
-
     private void txtRFCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtRFCActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtRFCActionPerformed
-
-    private void txtTelefonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTelefonoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtTelefonoActionPerformed
 
     private void esconderPass(){
         txtPass1.setEchoChar('\u25cf');
@@ -400,7 +409,7 @@ public class Empleados extends javax.swing.JPanel {
     }
     
     private boolean esVacio(){
-        return((txtNombre.getText().isBlank()||txtApellido.getText().isBlank()||txtEdad.getText().isBlank()||txtRFC.getText().isBlank()
+        return((txtNombre.getText().isBlank()||txtApellido.getText().isBlank()||txtRFC.getText().isBlank()
            ||txtRFC.getText().isBlank())||txtPass1.getText().isBlank()||txtPass2.getText().isBlank());
     }
     
@@ -457,7 +466,7 @@ public class Empleados extends javax.swing.JPanel {
     private void LimpiarTxt(){
         txtNombre.setText("");
         txtApellido.setText("");
-        txtEdad.setText("");
+        spnEdad.setValue(18);
         txtRFC.setText("");
         txtUser.setText("");
         txtPass1.setText("");
@@ -475,6 +484,7 @@ public class Empleados extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel lblApellidos;
     private javax.swing.JLabel lblEdad;
     private javax.swing.JLabel lblNombre;
@@ -482,19 +492,20 @@ public class Empleados extends javax.swing.JPanel {
     private javax.swing.JLabel lblPass2;
     private javax.swing.JLabel lblRFC;
     private javax.swing.JLabel lblTelefono;
+    private javax.swing.JLabel lblTelefono1;
     private javax.swing.JLabel lblUsuario;
     private swing.PanelShadow panelShadow1;
     private swing.RoundPanel roundPanel1;
     private swing.RoundPanel roundPanel2;
+    private javax.swing.JSpinner spnEdad;
     private javax.swing.JTable tabla;
     private javax.swing.JTextField txtApellido;
     private javax.swing.JTextField txtBuscar;
-    private javax.swing.JTextField txtEdad;
     private javax.swing.JTextField txtNombre;
     private swing.PasswordField txtPass1;
     private swing.PasswordField txtPass2;
     private javax.swing.JTextField txtRFC;
-    private javax.swing.JTextField txtTelefono;
+    private javax.swing.JFormattedTextField txtTelefono;
     private swing.TextField txtUser;
     // End of variables declaration//GEN-END:variables
 }

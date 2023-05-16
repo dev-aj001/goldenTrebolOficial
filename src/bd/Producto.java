@@ -1,6 +1,8 @@
 
 package bd;
 
+import java.time.LocalDate;
+
 /**
  *
  * @author jairi
@@ -14,6 +16,7 @@ public class Producto {
     private Double precioVen;
     private String departameto;
     private int ventaPor;
+    private LocalDate fecha;
 
     public Producto() {
     }
@@ -73,14 +76,17 @@ public class Producto {
     public void setVentaPor(int ventaPor) {
         this.ventaPor = ventaPor;
     }
-    
-    
+
+    public LocalDate getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(LocalDate fecha) {
+        this.fecha = fecha;
+    }
 
     @Override
     public String toString() {
-        return "Producto{" + "codigo=" + codigo + ", descripcion=" + descripcion + ", marca=" + marca + ", precioCom=" + precioCom + ", precioVen=" + precioVen + ", departameto=" + departameto + '}';
+        return "Producto{" + "codigo=" + codigo + ", descripcion=" + descripcion + ", marca=" + marca + ", precioCom=" + precioCom + ", precioVen=" + precioVen + ", departameto=" + departameto + ", ventaPor=" + ventaPor + ", fecha=" + fecha + '}';
     }
-    
-    
-    
 }

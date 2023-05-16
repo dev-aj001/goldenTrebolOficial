@@ -7,8 +7,13 @@ package forms;
 import bd.ConexionSQL;
 import bd.Producto;
 import java.awt.Color;
+import java.time.LocalDate;
+import java.time.YearMonth;
 import java.util.ArrayList;
+import java.util.Date;
 import javax.swing.JOptionPane;
+import javax.swing.SpinnerListModel;
+import javax.swing.SpinnerNumberModel;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -24,12 +29,16 @@ public class Productos extends javax.swing.JPanel {
     private ConexionSQL mDB;
     private DefaultTableModel tbm;
     
+    private LocalDate fechaActual;
+    
     
     public Productos() {
         initComponents();
         mDB = new ConexionSQL("treboldb", "root", "C19400437");
         init();
         initTabla();
+        setFechaActual();
+        
     }
     
     private void initTabla(){
@@ -41,6 +50,7 @@ public class Productos extends javax.swing.JPanel {
         tbm.addColumn("precio de venta");
         tbm.addColumn("departamento");
         tbm.addColumn("se vende por");
+        tbm.addColumn("Fecha Cad.");
         CargarProductos();
     }
     
@@ -52,6 +62,7 @@ public class Productos extends javax.swing.JPanel {
         costo = (Double)spnCosto.getValue();
         venta = (Double)spnVenta.getValue();
         ganancia = (Double)spnGanancia.getValue();
+        fechaActual = LocalDate.now();
     }
 
     /**
@@ -82,10 +93,16 @@ public class Productos extends javax.swing.JPanel {
         lblDepartamento = new javax.swing.JLabel();
         lblGanancia = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
-        txtCaducidad = new javax.swing.JTextField();
         cmbDepartamento = new javax.swing.JComboBox<>();
         jLabel16 = new javax.swing.JLabel();
-        txtMarca1 = new javax.swing.JTextField();
+        txtMarca = new javax.swing.JTextField();
+        spnAnio = new javax.swing.JSpinner();
+        spnDia = new javax.swing.JSpinner();
+        spnMes = new javax.swing.JSpinner();
+        jLabel17 = new javax.swing.JLabel();
+        jLabel18 = new javax.swing.JLabel();
+        jLabel19 = new javax.swing.JLabel();
+        cbFecha = new javax.swing.JCheckBox();
         btnGuardar = new javax.swing.JButton();
         roundPanel2 = new swing.RoundPanel();
         jLabel9 = new javax.swing.JLabel();
@@ -188,12 +205,8 @@ public class Productos extends javax.swing.JPanel {
         lblGanancia.setText("Ganancia         %");
         roundPanel1.add(lblGanancia, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 290, 90, 20));
 
-        jLabel15.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel15.setText("Fecah de Cad.");
-        roundPanel1.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 370, 80, 20));
-
-        txtCaducidad.setToolTipText("Descripcion del producto.\nDescribe aqui el nombre, tamaño, y otros aspectos que decriban el producto");
-        roundPanel1.add(txtCaducidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 370, 210, -1));
+        jLabel15.setText("Año");
+        roundPanel1.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 400, 60, 20));
 
         cmbDepartamento.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Dulceria", "Jugeteria", "Decorativos" }));
         roundPanel1.add(cmbDepartamento, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 330, 150, -1));
@@ -202,8 +215,44 @@ public class Productos extends javax.swing.JPanel {
         jLabel16.setText("Marca");
         roundPanel1.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, 80, 20));
 
-        txtMarca1.setToolTipText("Descripcion del producto.\nDescribe aqui el nombre, tamaño, y otros aspectos que decriban el producto");
-        roundPanel1.add(txtMarca1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 120, 210, -1));
+        txtMarca.setToolTipText("Descripcion del producto.\nDescribe aqui el nombre, tamaño, y otros aspectos que decriban el producto");
+        roundPanel1.add(txtMarca, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 120, 210, -1));
+
+        spnAnio.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                spnAnioStateChanged(evt);
+            }
+        });
+        roundPanel1.add(spnAnio, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 420, 80, -1));
+
+        spnDia.setModel(new javax.swing.SpinnerNumberModel(1, null, null, 1));
+        roundPanel1.add(spnDia, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 420, 80, -1));
+
+        spnMes.setModel(new javax.swing.SpinnerNumberModel(1, 1, 12, 1));
+        spnMes.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                spnMesStateChanged(evt);
+            }
+        });
+        roundPanel1.add(spnMes, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 420, 90, -1));
+
+        jLabel17.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel17.setText("Fecha de Caducidad");
+        roundPanel1.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 370, 130, 20));
+
+        jLabel18.setText("Dia");
+        roundPanel1.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 400, 60, 20));
+
+        jLabel19.setText("Mes");
+        roundPanel1.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 400, 60, 20));
+
+        cbFecha.setText("Si");
+        cbFecha.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                cbFechaStateChanged(evt);
+            }
+        });
+        roundPanel1.add(cbFecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 370, -1, -1));
 
         btnGuardar.setText("Agregar");
         btnGuardar.addActionListener(new java.awt.event.ActionListener() {
@@ -322,7 +371,7 @@ public class Productos extends javax.swing.JPanel {
             Producto mProducto = new Producto();
             mProducto.setCodigo(txtCodigo.getText());
             mProducto.setDescripcion(txtDescripcion.getText());
-            mProducto.setMarca(txtCaducidad.getText());
+//            mProducto.setMarca(txtCaducidad.getText());
             mProducto.setPrecioCom((Double)spnCosto.getValue());
             mProducto.setPrecioVen((Double)spnVenta.getValue());
             mProducto.setDepartameto(cmbDepartamento.getSelectedItem().toString());
@@ -342,9 +391,11 @@ public class Productos extends javax.swing.JPanel {
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void tablaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaMouseClicked
+        String fecha = "";
+        
         txtCodigo.setText(tbm.getValueAt(tabla.getSelectedRow(), 0).toString());
         txtDescripcion.setText(tbm.getValueAt(tabla.getSelectedRow(), 1).toString());
-        txtCaducidad.setText(tbm.getValueAt(tabla.getSelectedRow(), 2).toString());
+//        txtCaducidad.setText(tbm.getValueAt(tabla.getSelectedRow(), 2).toString());
         spnCosto.setValue(Double.valueOf(tbm.getValueAt(tabla.getSelectedRow(), 3).toString()));
         spnVenta.setValue(Double.valueOf(tbm.getValueAt(tabla.getSelectedRow(), 4).toString()));
         
@@ -373,6 +424,7 @@ public class Productos extends javax.swing.JPanel {
                     mDB.EliminarProducto(codigo);
                     LimpiarTabla();
                     CargarProductos();
+                    LimpiarTxt();
                 }
             }
         }
@@ -387,7 +439,7 @@ public class Productos extends javax.swing.JPanel {
                     Producto mProduc= new Producto();
                     mProduc.setCodigo(txtCodigo.getText());
                     mProduc.setDescripcion(txtDescripcion.getText());
-                    mProduc.setMarca(txtCaducidad.getText());
+                    mProduc.setMarca(txtMarca.getText());
                     mProduc.setPrecioCom((Double)spnCosto.getValue());
                     mProduc.setPrecioVen((Double)spnVenta.getValue());
                     mProduc.setDepartameto(cmbDepartamento.getSelectedItem().toString());
@@ -395,6 +447,7 @@ public class Productos extends javax.swing.JPanel {
                     mDB.ModificarProducto(mProduc);
                     LimpiarTabla();
                     CargarProductos();
+                    LimpiarTxt();
                 }
             }
         }
@@ -444,6 +497,30 @@ public class Productos extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_spnGananciaStateChanged
 
+    private void cbFechaStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_cbFechaStateChanged
+        if(cbFecha.isSelected()){
+            spnAnio.setEnabled(true);
+            spnDia.setEnabled(true);
+            spnMes.setEnabled(true);
+        }else{
+            spnAnio.setEnabled(false);
+            spnDia.setEnabled(false);
+            spnMes.setEnabled(false);
+        }
+    }//GEN-LAST:event_cbFechaStateChanged
+
+    private void spnMesStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spnMesStateChanged
+        int mes = (int)spnMes.getValue();
+        int year = (int)spnAnio.getValue();
+        validarDiaMes(year, mes);
+    }//GEN-LAST:event_spnMesStateChanged
+
+    private void spnAnioStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spnAnioStateChanged
+        int mes = (int)spnMes.getValue();
+        int year = (int)spnAnio.getValue();
+        validarDiaMes(year, mes);
+    }//GEN-LAST:event_spnAnioStateChanged
+
     private boolean validarTxt(){
         if(esVacio()){
             JOptionPane.showMessageDialog(this, "Llena todos los campos");
@@ -452,15 +529,17 @@ public class Productos extends javax.swing.JPanel {
         return true;
     }
     
+    
+    
     private boolean esVacio(){
-        return((txtCodigo.getText().isBlank()||txtDescripcion.getText().isBlank()||txtCaducidad.getText().isBlank()));
+        return((txtCodigo.getText().isBlank()||txtDescripcion.getText().isBlank()));
     }
     
     private void CargarProductos(){
         ArrayList Productos;
         Producto mProduc;
         if(mDB.Conectar()){
-            String [] Datos = new String[7];
+            String [] Datos = new String[8];
             Productos =mDB.GetProductos();
             if(Productos != null){
                 for (int i = 0; i < Productos.size(); i++) {
@@ -472,6 +551,7 @@ public class Productos extends javax.swing.JPanel {
                     Datos[4]=String.valueOf(mProduc.getPrecioVen());
                     Datos[5]=String.valueOf(mProduc.getDepartameto());
                     Datos[6]=((mProduc.getVentaPor()==1)?"Pz.":"Granel");
+                    Datos[7]=String.valueOf(mProduc.getFecha());
                     tbm.addRow(Datos);
                 }
                 
@@ -479,10 +559,11 @@ public class Productos extends javax.swing.JPanel {
                 this.tabla.getColumnModel().getColumn(0).setPreferredWidth(42);
                 this.tabla.getColumnModel().getColumn(1).setPreferredWidth(42);
                 this.tabla.getColumnModel().getColumn(2).setPreferredWidth(42);
-                this.tabla.getColumnModel().getColumn(3).setPreferredWidth(42);
-                this.tabla.getColumnModel().getColumn(4).setPreferredWidth(42);
+                this.tabla.getColumnModel().getColumn(3).setPreferredWidth(15);
+                this.tabla.getColumnModel().getColumn(4).setPreferredWidth(15);
                 this.tabla.getColumnModel().getColumn(5).setPreferredWidth(42);
-                this.tabla.getColumnModel().getColumn(6).setPreferredWidth(42);
+                this.tabla.getColumnModel().getColumn(6).setPreferredWidth(20);
+                this.tabla.getColumnModel().getColumn(7).setPreferredWidth(42);
                 
                 if(this.tabla.getRowCount()>0){
                     this.tabla.setRowSelectionInterval(0, 0);
@@ -504,13 +585,47 @@ public class Productos extends javax.swing.JPanel {
     private void LimpiarTxt(){
         txtCodigo.setText("");
         txtDescripcion.setText("");
-        txtCaducidad.setText("");
+        setFechaActual();
         spnCosto.setValue(0);
         spnVenta.setValue(0);
         spnGanancia.setValue(0);
         cmbDepartamento.setSelectedIndex(0);
         btnPieza.setSelected(true);
+        
+        setFechaActual();
     }
+    
+    private void setFechaActual() {
+        // Separar la fecha en día, mes y año
+        int dia = fechaActual.getDayOfMonth();
+        int mes = fechaActual.getMonthValue();
+        int year = fechaActual.getYear();
+        
+        //asignar los correspondientes valores en los spn
+        spnDia.setValue(dia);
+        spnMes.setValue(mes);
+        spnAnio.setValue(year);
+    }
+    
+    private void validarDiaMes(int year, int mes){
+        //Obtiene los dias del mes seleccionado
+        YearMonth yearMonth = YearMonth.of(year, mes);
+        //Retorna los dias del mes seleccionado
+        int dias = yearMonth.lengthOfMonth();
+        
+        int getDia = (int)spnDia.getValue();
+        SpinnerNumberModel modelDia;
+        
+        if(getDia>dias){
+            modelDia = new SpinnerNumberModel(1, 1, dias, 1);
+        }else{
+            modelDia = new SpinnerNumberModel(getDia, 1, dias, 1);
+        }
+        
+        //asignar los correspondientes valores en los spn
+        spnDia.setModel(modelDia);
+    }
+    
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEliminar;
@@ -519,11 +634,15 @@ public class Productos extends javax.swing.JPanel {
     private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnModificar;
     private javax.swing.JRadioButton btnPieza;
+    private javax.swing.JCheckBox cbFecha;
     private javax.swing.JComboBox<String> cmbDepartamento;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
@@ -537,13 +656,17 @@ public class Productos extends javax.swing.JPanel {
     private swing.PanelShadow panelShadow1;
     private swing.RoundPanel roundPanel1;
     private swing.RoundPanel roundPanel2;
+    private javax.swing.JSpinner spnAnio;
     private javax.swing.JSpinner spnCosto;
+    private javax.swing.JSpinner spnDia;
     private javax.swing.JSpinner spnGanancia;
+    private javax.swing.JSpinner spnMes;
     private javax.swing.JSpinner spnVenta;
     private javax.swing.JTable tabla;
-    private javax.swing.JTextField txtCaducidad;
     private javax.swing.JTextField txtCodigo;
     private javax.swing.JTextField txtDescripcion;
-    private javax.swing.JTextField txtMarca1;
+    private javax.swing.JTextField txtMarca;
     // End of variables declaration//GEN-END:variables
+
+    
 }
