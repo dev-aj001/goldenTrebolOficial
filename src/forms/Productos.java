@@ -283,6 +283,11 @@ public class Productos extends javax.swing.JPanel {
         jScrollPane1.setViewportView(tabla);
 
         jButton1.setText("Buscar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout roundPanel2Layout = new javax.swing.GroupLayout(roundPanel2);
         roundPanel2.setLayout(roundPanel2Layout);
@@ -521,6 +526,10 @@ public class Productos extends javax.swing.JPanel {
         validarDiaMes(year, mes);
     }//GEN-LAST:event_spnAnioStateChanged
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        System.out.println("Fecha: "+ getFecha());
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     private boolean validarTxt(){
         if(esVacio()){
             JOptionPane.showMessageDialog(this, "Llena todos los campos");
@@ -624,6 +633,16 @@ public class Productos extends javax.swing.JPanel {
         
         //asignar los correspondientes valores en los spn
         spnDia.setModel(modelDia);
+    }
+    
+    private String getFecha(){
+        String fecha="";
+        
+        fecha = fecha + spnAnio.getValue().toString() +"-";
+        fecha = fecha + spnMes.getValue().toString() +"-";
+        fecha = fecha + spnDia.getValue().toString();
+        
+        return fecha;
     }
     
     
