@@ -38,7 +38,6 @@ public class Productos extends javax.swing.JPanel {
         init();
         initTabla();
         setFechaActual();
-        
     }
     
     private void initTabla(){
@@ -376,11 +375,12 @@ public class Productos extends javax.swing.JPanel {
             Producto mProducto = new Producto();
             mProducto.setCodigo(txtCodigo.getText());
             mProducto.setDescripcion(txtDescripcion.getText());
-//            mProducto.setMarca(txtCaducidad.getText());
+            mProducto.setMarca(txtMarca.getText());
             mProducto.setPrecioCom((Double)spnCosto.getValue());
             mProducto.setPrecioVen((Double)spnVenta.getValue());
             mProducto.setDepartameto(cmbDepartamento.getSelectedItem().toString());
-            mProducto.setVentaPor((btnPieza.isSelected())?1:0); //1 por pieza, 0 por granel      
+            mProducto.setVentaPor((btnPieza.isSelected())?1:0); //1 por pieza, 0 por granel 
+            mProducto.setFecha(getFecha());
             
             if(mDB.Conectar()){
                 if(mDB.AddProducto(mProducto)){
@@ -400,24 +400,25 @@ public class Productos extends javax.swing.JPanel {
         
         txtCodigo.setText(tbm.getValueAt(tabla.getSelectedRow(), 0).toString());
         txtDescripcion.setText(tbm.getValueAt(tabla.getSelectedRow(), 1).toString());
-//        txtCaducidad.setText(tbm.getValueAt(tabla.getSelectedRow(), 2).toString());
+        txtMarca.setText(tbm.getValueAt(tabla.getSelectedRow(), 2).toString());
         spnCosto.setValue(Double.valueOf(tbm.getValueAt(tabla.getSelectedRow(), 3).toString()));
         spnVenta.setValue(Double.valueOf(tbm.getValueAt(tabla.getSelectedRow(), 4).toString()));
-        
+        //Obtiene el departamento
         switch (tbm.getValueAt(tabla.getSelectedRow(), 5).toString()) {
             case "Dulceria" -> cmbDepartamento.setSelectedIndex(0);
             case "Jugeteria" -> cmbDepartamento.setSelectedIndex(1);
             default -> cmbDepartamento.setSelectedIndex(2);
         }
-        //cmbDepartamento.setSelectedIndex((tbm.getValueAt(tabla.getSelectedRow(), 5).toString().equals("Dulceria"))?1:0);//falta corregir
+        //Obtiene si se vende por pieza o granel
         if(tbm.getValueAt(tabla.getSelectedRow(), 6).toString().equals("Pz.")){
             btnPieza.setSelected(true);
         }else{
             btnPieza.setSelected(false);
         }
-            
-        //txtPass1.setText(tbm.getValueAt(tabla.getSelectedRow(), 7).toString());
-        //txtPass2.setText(tbm.getValueAt(tabla.getSelectedRow(), 7).toString());
+        
+        setFecha(tbm.getValueAt(tabla.getSelectedRow(), 7).toString());
+        
+        
     }//GEN-LAST:event_tablaMouseClicked
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
@@ -449,6 +450,7 @@ public class Productos extends javax.swing.JPanel {
                     mProduc.setPrecioVen((Double)spnVenta.getValue());
                     mProduc.setDepartameto(cmbDepartamento.getSelectedItem().toString());
                     mProduc.setVentaPor((btnPieza.isSelected())?1:0); //1 por pieza, 0 por granel
+                    mProduc.setFecha(getFecha());
                     mDB.ModificarProducto(mProduc);
                     LimpiarTabla();
                     CargarProductos();
@@ -463,7 +465,7 @@ public class Productos extends javax.swing.JPanel {
     }//GEN-LAST:event_btnGranelActionPerformed
 
     private void spnCostoStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spnCostoStateChanged
-        costo = (Double)spnCosto.getValue();
+        costo = Double.valueOf(spnCosto.getValue().toString());
         
         venta = costo + costo*(ganancia/100);
         spnVenta.setValue(venta);
@@ -474,7 +476,7 @@ public class Productos extends javax.swing.JPanel {
     }//GEN-LAST:event_spnVentaFocusLost
 
     private void spnVentaStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spnVentaStateChanged
-        venta = (Double)spnVenta.getValue();
+        venta = Double.valueOf(spnVenta.getValue().toString());
         
         ganancia = (venta-costo)/costo*100;
         spnGanancia.setValue(ganancia);
@@ -491,7 +493,7 @@ public class Productos extends javax.swing.JPanel {
     }//GEN-LAST:event_spnVentaStateChanged
 
     private void spnGananciaStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spnGananciaStateChanged
-        ganancia = (Double)spnGanancia.getValue();
+        ganancia = Double.valueOf(spnGanancia.getValue().toString());
         
         venta = costo + costo*(ganancia/100);
         spnVenta.setValue(venta);
@@ -527,7 +529,7 @@ public class Productos extends javax.swing.JPanel {
     }//GEN-LAST:event_spnAnioStateChanged
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        System.out.println("Fecha: "+ getFecha());
+        
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private boolean validarTxt(){
@@ -614,6 +616,18 @@ public class Productos extends javax.swing.JPanel {
         spnDia.setValue(dia);
         spnMes.setValue(mes);
         spnAnio.setValue(year);
+    }
+    
+    private void setFecha(String fecha){
+        String[] fechaSplit = fecha.split("-");
+                
+        int dia = Integer.parseInt(fechaSplit[2]);
+        int mes = Integer.parseInt(fechaSplit[1]);
+        int year = Integer.parseInt(fechaSplit[0]);
+        
+        spnAnio.setValue(year);
+        spnMes.setValue(mes);
+        spnDia.setValue(dia);
     }
     
     private void validarDiaMes(int year, int mes){

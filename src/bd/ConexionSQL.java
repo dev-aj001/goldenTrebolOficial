@@ -78,8 +78,14 @@ public class ConexionSQL {
     public boolean AddProducto(Producto mProduc){
         try {
             mStatement = mConection.createStatement();
-            mStatement.execute("INSERT INTO producto (codigo, descripcion, marca, precioCompra, precioVenta, departamento, ventaPor) "+
-                    " VALUES ('"+mProduc.getCodigo()+"', '"+mProduc.getDescripcion()+"', '"+mProduc.getMarca()+"', "+String.valueOf(mProduc.getPrecioCom())+", "+String.valueOf(mProduc.getPrecioVen())+", '"+mProduc.getDepartameto()+"', "+String.valueOf(mProduc.getVentaPor())+");");
+            mStatement.execute("INSERT INTO producto (codigo, descripcion, marca, precioCompra, precioVenta, departamento, ventaPor, fechaCad) "+
+                    " VALUES ('"+mProduc.getCodigo()+"', '"+mProduc.getDescripcion()
+                    +"', '"+mProduc.getMarca()
+                    +"', "+String.valueOf(mProduc.getPrecioCom())
+                    +", "+String.valueOf(mProduc.getPrecioVen())
+                    +", '"+mProduc.getDepartameto()
+                    +"', "+String.valueOf(mProduc.getVentaPor())
+                    +", '"+mProduc.getFecha()+"' "+");");
             return true;
         } catch (Exception e) {
             System.out.println(e);
@@ -151,6 +157,9 @@ public class ConexionSQL {
                 mProduc.setPrecioVen(mResultSet.getDouble("precioVenta"));
                 mProduc.setDepartameto(mResultSet.getString("departamento"));
                 mProduc.setVentaPor(mResultSet.getInt("ventaPor"));
+                mProduc.setFecha(mResultSet.getDate("fechaCad").toString());
+                mProduc.setExistencia(mResultSet.getInt("existencia"));
+                mProduc.setMinimo(mResultSet.getInt("minimo"));
                 return mProduc;
             }
             
@@ -226,9 +235,13 @@ public class ConexionSQL {
                 mProduc.setPrecioVen(mResultSet.getDouble("precioVenta"));
                 mProduc.setDepartameto(mResultSet.getString("departamento"));
                 mProduc.setVentaPor(mResultSet.getInt("ventaPor"));
+                mProduc.setFecha(mResultSet.getDate("fechaCad").toString());
+                mProduc.setExistencia(mResultSet.getInt("existencia"));
+                mProduc.setMinimo(mResultSet.getInt("minimo"));
                 Productos.add(mProduc);
             }
         } catch (Exception e) {
+            System.out.println("Cargar productos: " + e);
             return null;
         }
         
@@ -313,7 +326,22 @@ public class ConexionSQL {
                     +"precioCompra = "+mProduc.getPrecioCom()+" , "
                     +"precioventa = "+mProduc.getPrecioVen()+" , "
                     +"departamento = '"+mProduc.getDepartameto()+"',"
-                    +"ventaPor = "+mProduc.getVentaPor()+" "
+                    +"ventaPor = "+mProduc.getVentaPor()+", "
+                    +"fechaCad = '"+mProduc.getFecha()+"' "
+                    +"WHERE codigo='"+mProduc.getCodigo()+"'"
+            );
+            
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+    
+    public void ModificarProductoExistencia(Producto mProduc){
+        try {
+            mStatement = mConection.createStatement();
+            mStatement.execute("UPDATE producto SET "
+                    +"existencia = "+mProduc.getExistencia()+", "
+                    +"minimo = "+mProduc.getMinimo()+", "
                     +"WHERE codigo='"+mProduc.getCodigo()+"'"
             );
             

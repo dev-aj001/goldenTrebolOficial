@@ -1,8 +1,5 @@
 
 package bd;
-
-import java.time.LocalDate;
-
 /**
  *
  * @author jairi
@@ -16,7 +13,9 @@ public class Producto {
     private Double precioVen;
     private String departameto;
     private int ventaPor;
-    private LocalDate fecha;
+    private String fecha;
+    private int existencia;
+    private int minimo;
 
     public Producto() {
     }
@@ -77,16 +76,35 @@ public class Producto {
         this.ventaPor = ventaPor;
     }
 
-    public LocalDate getFecha() {
+    public String getFecha() {
         return fecha;
     }
 
-    public void setFecha(LocalDate fecha) {
+    public void setFecha(String fecha) {
         this.fecha = fecha;
     }
 
+    public int getExistencia() {
+        return existencia;
+    }
+
+    public void setExistencia(int existencia) {
+        this.existencia = existencia;
+    }
+
+    public int getMinimo() {
+        return minimo;
+    }
+
+    public void setMinimo(int minimo) {
+        this.minimo = minimo;
+    }
+    
+    
+
     @Override
     public String toString() {
-        return "Producto{" + "codigo=" + codigo + ", descripcion=" + descripcion + ", marca=" + marca + ", precioCom=" + precioCom + ", precioVen=" + precioVen + ", departameto=" + departameto + ", ventaPor=" + ventaPor + ", fecha=" + fecha + '}';
+        return "Producto{" + "codigo=" + codigo + ", descripcion=" + descripcion + ", marca=" + marca + ", precioCom=" + precioCom + ", precioVen=" + precioVen + ", departameto=" + departameto + ", ventaPor=" + ventaPor + ", fecha=" + fecha
+                + ", existencia=" + existencia + ", minimo=" + minimo + '}';
     }
 }
