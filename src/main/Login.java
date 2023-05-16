@@ -28,7 +28,7 @@ public class Login extends javax.swing.JFrame {
         mDB = new ConexionSQL("treboldb", "root", "C19400437");
         setBackground(new Color(0, 0, 0, 0));
         setImageLabel(jLabel2,"src/img/logo.png");
-        System.out.println(mEncoder.encode("1234"));
+        //System.out.println(mEncoder.encode("1234"));
     }
     
     private void setImageLabel(JLabel labelName, String root){
@@ -73,6 +73,11 @@ public class Login extends javax.swing.JFrame {
         panel.setOpaque(false);
 
         txtUser.setHint("Nombre de Usuario");
+        txtUser.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtUserActionPerformed(evt);
+            }
+        });
 
         txtPassword.setHint("Contraseña");
 
@@ -199,6 +204,10 @@ public class Login extends javax.swing.JFrame {
     private void backgroundMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backgroundMouseDragged
         FiveCodMoverJFrame.MouseDraggedFrame(evt, this);
     }//GEN-LAST:event_backgroundMouseDragged
+
+    private void txtUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUserActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtUserActionPerformed
 
     /**
      * @param args the command line arguments

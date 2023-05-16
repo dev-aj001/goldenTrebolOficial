@@ -4,6 +4,16 @@
  */
 package forms;
 
+import Clases.ValidarCredenciales;
+import bd.ConexionSQL;
+import bd.EncriptadoMD5;
+import bd.Usuario;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.JOptionPane;
+import main.Main;
+import main.MainEm;
+
 /**
  *
  * @author jairi
@@ -14,16 +24,55 @@ public class Credenciales extends javax.swing.JFrame {
     private static String user;
     private boolean ok;
     
+    private EncriptadoMD5 mEncoder;
+    private ConexionSQL mDB;
+    
+    private ValidarCredenciales clase;
+    
     public Credenciales(String user) {
         initComponents();
         pass = "";
         this.user = user;
         ok = false;
         System.out.println("user:" + user);
+        mEncoder = new EncriptadoMD5();
+        mDB = new ConexionSQL("treboldb", "root", "C19400437");
+        
+        btnAceptar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                pass = txtPass.getText();
+        
+        Usuario mUsuario = new Usuario();
+        String Pass = "";
+        if(mDB.Conectar()){
+                mUsuario = mDB.GetUser(user);
+                Pass = mEncoder.encode(txtPass.getText());
+                if(mUsuario != null){
+                    if(Pass.equals(mUsuario.getPass())){
+                        ok=true;
+                        JOptionPane.showMessageDialog(null, "Contraseña correcta, cambios aplicados");
+                        dispose();
+                    }else{
+                        JOptionPane.showMessageDialog(null, "La contraseña es incorrecta");
+                    }
+                }else{
+                    JOptionPane.showMessageDialog(null, "Usuario no encontrado");
+                }
+            }else{
+                JOptionPane.showMessageDialog(null, "Error al conectar");
+            }
+            }
+        });
     }
     
     public boolean getOK(){
         return this.ok;
+    }
+    
+       
+    public void setClase(ValidarCredenciales clase){
+        this.clase = clase;
     }
 
     /**
@@ -40,7 +89,7 @@ public class Credenciales extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         txtPass = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnAceptar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -62,13 +111,13 @@ public class Credenciales extends javax.swing.JFrame {
         });
         jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 100, -1, -1));
 
-        jButton2.setText("Aceptar");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnAceptar.setText("Aceptar");
+        btnAceptar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnAceptarActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 100, -1, -1));
+        jPanel1.add(btnAceptar, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 100, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -91,9 +140,9 @@ public class Credenciales extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        pass = txtPass.getText();
-    }//GEN-LAST:event_jButton2ActionPerformed
+    private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
+        
+    }//GEN-LAST:event_btnAceptarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -131,8 +180,8 @@ public class Credenciales extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAceptar;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;

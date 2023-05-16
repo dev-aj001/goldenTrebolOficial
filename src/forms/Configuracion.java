@@ -4,7 +4,7 @@
  */
 package forms;
 
-import Clases.Validar;
+import Clases.ValidarCredenciales;
 import javax.swing.JOptionPane;
 
 /**
@@ -416,13 +416,26 @@ public class Configuracion extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-        Credenciales credencial = new Credenciales(user);
+        /*Credenciales credencial = new Credenciales(user);
         if(JOptionPane.showConfirmDialog(null, "Desea aplicar los cambios en la configuración?" ,"Aplicar",JOptionPane.WARNING_MESSAGE,JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
            credencial.setVisible(true);
            if(credencial.getOK()){
                
            }
+        }*/
+        
+        try {
+            Credenciales cred = new Credenciales(user);
+            cred.setVisible(true);
+            if(cred.getOK()){
+                System.out.println("Verdadero");
+            }else{
+                System.out.println("False");
+            }
+        } catch (Exception e) {
+            System.out.println("algo paso");
         }
+        
         //credencial.dispose();
     }//GEN-LAST:event_btnGuardarActionPerformed
 
