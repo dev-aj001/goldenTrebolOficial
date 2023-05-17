@@ -5,6 +5,8 @@
 package forms;
 
 import Clases.ValidarCredenciales;
+import bd.ConexionSQL;
+import bd.Configurar;
 import javax.swing.JOptionPane;
 
 /**
@@ -14,11 +16,36 @@ import javax.swing.JOptionPane;
 public class Configuracion extends javax.swing.JPanel {
 
     private static String user;
+    private ConexionSQL mDB;
     
     public Configuracion(String user) {
         initComponents();
         setOpaque(false);
         this.user = user;
+        mDB = new ConexionSQL("treboldb", "root", "C19400437");
+        
+        initRadioButons();
+        cargarConfig();
+    }
+    
+    public void aplicarCambios(){
+        if(mDB.Conectar()){
+                    Configurar mConfig= new Configurar();
+                    mConfig.setSucursal(txtSucursal.getText().trim());
+                    mConfig.setDireccion(txtDireccion.getText().trim());
+                    mConfig.setRfc(txtRFC.getText().trim());
+                    mConfig.setCorreo(txtCorreo.getText().trim());
+                    mConfig.setTel1(txtTelefono.getText().trim());
+                    mConfig.setTel2(txtTelefono2.getText().trim());
+                    mConfig.setPagina(txtPagina.getText().trim());
+                    mConfig.setIva((rbtnSiVenta.isSelected())?1:0);
+                    mConfig.setAlerta((rbtnSiAlamcen.isSelected())?1:0);
+                    mConfig.setGanancia((Double)spnGanancia.getValue());
+                    mConfig.setDb(txtDataBase.getText());
+                    
+                    mDB.modificarConfiguracion(mConfig);
+                    cargarConfig();
+                }
     }
 
     /**
@@ -30,8 +57,8 @@ public class Configuracion extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        buttonGroup1 = new javax.swing.ButtonGroup();
-        buttonGroup2 = new javax.swing.ButtonGroup();
+        grpVenta = new javax.swing.ButtonGroup();
+        grpAlerta = new javax.swing.ButtonGroup();
         panelShadow1 = new swing.PanelShadow();
         btnGuardar = new javax.swing.JButton();
         roundPanel2 = new swing.RoundPanel();
@@ -427,11 +454,7 @@ public class Configuracion extends javax.swing.JPanel {
         try {
             Credenciales cred = new Credenciales(user);
             cred.setVisible(true);
-            if(cred.getOK()){
-                System.out.println("Verdadero");
-            }else{
-                System.out.println("False");
-            }
+            cred.setClase(this);
         } catch (Exception e) {
             System.out.println("algo paso");
         }
@@ -450,8 +473,8 @@ public class Configuracion extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnGuardar;
-    private javax.swing.ButtonGroup buttonGroup1;
-    private javax.swing.ButtonGroup buttonGroup2;
+    private javax.swing.ButtonGroup grpAlerta;
+    private javax.swing.ButtonGroup grpVenta;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -497,4 +520,51 @@ public class Configuracion extends javax.swing.JPanel {
     private javax.swing.JTextField txtTelefono;
     private javax.swing.JTextField txtTelefono2;
     // End of variables declaration//GEN-END:variables
+
+    private void cargarConfig() {
+        Configurar config;
+        
+        if(mDB.Conectar()){
+            
+            config = mDB.GetConfig(1);
+            if(config != null){
+                System.out.println("Configuracion: " + config.toString());
+                    txtSucursal.setText(config.getSucursal());
+                    txtDireccion.setText(config.getDireccion());
+                    txtRFC.setText(config.getRfc());
+                    txtCorreo.setText(config.getCorreo());
+                    txtPagina.setText(config.getPagina());
+                    txtTelefono.setText(config.getTel1());
+                    txtTelefono2.setText(config.getTel2());
+                    
+                    if(config.getIva()==1){
+                        rbtnSiVenta.setSelected(true);
+                    }else{
+                        rbtnNoVenta.setSelected(true);
+                    }
+                    
+                    spnGanancia.setValue(config.getGanancia());
+                    
+                    txtDataBase.setText(config.getDb());
+                    
+                    if(config.getAlerta()==1){
+                        rbtnSiAlamcen.setSelected(true);
+                    }else{
+                        rbtnNoAlmacen.setSelected(true);
+                    }
+                    
+                }
+        }else{
+            JOptionPane.showMessageDialog(null, "Error al cargar usuarios");
+        }
+        
+    }
+
+    private void initRadioButons() {
+        grpAlerta.add(rbtnNoAlmacen);
+        grpAlerta.add(rbtnSiAlamcen);
+        
+        grpVenta.add(rbtnSiVenta);
+        grpVenta.add(rbtnNoVenta);
+    }
 }

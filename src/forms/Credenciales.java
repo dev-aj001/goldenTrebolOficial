@@ -27,7 +27,7 @@ public class Credenciales extends javax.swing.JFrame {
     private EncriptadoMD5 mEncoder;
     private ConexionSQL mDB;
     
-    private ValidarCredenciales clase;
+    private Configuracion config;
     
     public Credenciales(String user) {
         initComponents();
@@ -51,6 +51,7 @@ public class Credenciales extends javax.swing.JFrame {
                 if(mUsuario != null){
                     if(Pass.equals(mUsuario.getPass())){
                         ok=true;
+                        config.aplicarCambios();
                         JOptionPane.showMessageDialog(null, "Contraseña correcta, cambios aplicados");
                         dispose();
                     }else{
@@ -71,8 +72,8 @@ public class Credenciales extends javax.swing.JFrame {
     }
     
        
-    public void setClase(ValidarCredenciales clase){
-        this.clase = clase;
+    public void setClase(Configuracion clase){
+        this.config = clase;
     }
 
     /**

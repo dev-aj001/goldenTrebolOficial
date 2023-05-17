@@ -169,6 +169,35 @@ public class ConexionSQL {
         return mProduc;
     }
     
+    public Configurar GetConfig(int id){
+        Configurar mConfig = null;
+        try {
+            mStatement = mConection.createStatement();
+            mResultSet = mStatement.executeQuery("SELECT * FROM config WHERE idconfig = "+id+" ");
+            
+            while(mResultSet.next()){
+                mConfig = new Configurar();
+                mConfig.setId(mResultSet.getInt("idconfig"));
+                mConfig.setGanancia(mResultSet.getDouble("ganancia"));
+                mConfig.setDb(mResultSet.getString("db"));
+                mConfig.setSucursal(mResultSet.getString("sucursal"));
+                mConfig.setDireccion(mResultSet.getString("direccion"));
+                mConfig.setRfc(mResultSet.getString("rfc"));
+                mConfig.setCorreo(mResultSet.getString("correo"));
+                mConfig.setTel1(mResultSet.getString("tel"));
+                mConfig.setTel2(mResultSet.getString("tel2"));
+                mConfig.setPagina(mResultSet.getString("pagina"));
+                mConfig.setIva(mResultSet.getInt("iva"));
+                mConfig.setAlerta(mResultSet.getInt("alerta"));
+                return mConfig;
+            }
+            
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return mConfig;
+    }
+    
     
     // Metodos para Arreglos
     public ArrayList GetUsuarios(){
@@ -341,8 +370,32 @@ public class ConexionSQL {
             mStatement = mConection.createStatement();
             mStatement.execute("UPDATE producto SET "
                     +"existencia = "+mProduc.getExistencia()+", "
-                    +"minimo = "+mProduc.getMinimo()+", "
+                    +"minimo = "+mProduc.getMinimo()+" "
                     +"WHERE codigo='"+mProduc.getCodigo()+"'"
+            );
+            
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+       
+    public void modificarConfiguracion(Configurar mConfig){
+        try {
+            mStatement = mConection.createStatement();
+            mStatement.execute("UPDATE config SET "
+                    +"ganancia = "+mConfig.getGanancia()+","
+                    +"db = '"+mConfig.getDb()+"',"
+                    +"sucursal = '"+mConfig.getSucursal()+"', "
+                    +"direccion = '"+mConfig.getDireccion()+"', "
+                    +"rfc = '"+mConfig.getRfc()+"',"
+                    +"correo = '"+mConfig.getCorreo()+"', "
+                    +"tel = '"+mConfig.getTel1()+"', "
+                    +"tel2 = '"+mConfig.getTel2()+"', "
+                    +"pagina = '"+mConfig.getPagina()+"', "
+                    +"iva = "+mConfig.getIva()+", "
+                    +"alerta = "+mConfig.getAlerta()+", "
+                    +"alerta = '"+mConfig.getAlerta()+"' "
+                    +"WHERE idconfig = 1 "
             );
             
         } catch (Exception e) {
