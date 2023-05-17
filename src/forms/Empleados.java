@@ -9,6 +9,7 @@ import bd.ConexionSQL;
 import static bd.ConexionSQL.mResultSet;
 import bd.EncriptadoMD5;
 import bd.Usuario;
+import java.awt.Color;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -92,9 +93,19 @@ public class Empleados extends javax.swing.JPanel {
                 txtPass1ActionPerformed(evt);
             }
         });
+        txtPass1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtPass1KeyTyped(evt);
+            }
+        });
         roundPanel1.add(txtPass1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 430, 140, -1));
 
         txtPass2.setToolTipText("Contraseña de la cuenta del usuario");
+        txtPass2.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtPass2KeyTyped(evt);
+            }
+        });
         roundPanel1.add(txtPass2, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 390, 140, -1));
 
         lblNombre.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -110,6 +121,14 @@ public class Empleados extends javax.swing.JPanel {
         roundPanel1.add(lblUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 360, 89, 25));
 
         txtUser.setToolTipText("Cuenta del usuario\nEl nombre de este campo será con el que\nel usuario entrará al sistema\n");
+        txtUser.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtUserKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtUserKeyTyped(evt);
+            }
+        });
         roundPanel1.add(txtUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 350, 140, -1));
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
@@ -131,6 +150,11 @@ public class Empleados extends javax.swing.JPanel {
         txtNombre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtNombreActionPerformed(evt);
+            }
+        });
+        txtNombre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNombreKeyTyped(evt);
             }
         });
         roundPanel1.add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 120, 140, -1));
@@ -390,6 +414,34 @@ public class Empleados extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtRFCActionPerformed
 
+    private void txtNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyTyped
+        if(lblNombre.getForeground()==Color.red){
+            lblNombre.setForeground(Color.black);
+        }
+    }//GEN-LAST:event_txtNombreKeyTyped
+
+    private void txtUserKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUserKeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtUserKeyReleased
+
+    private void txtUserKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUserKeyTyped
+        if(lblUsuario.getForeground()==Color.red){
+            lblUsuario.setForeground(Color.black);
+        }
+    }//GEN-LAST:event_txtUserKeyTyped
+
+    private void txtPass2KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPass2KeyTyped
+        if(lblPass1.getForeground()==Color.red){
+            lblPass1.setForeground(Color.black);
+        }
+    }//GEN-LAST:event_txtPass2KeyTyped
+
+    private void txtPass1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPass1KeyTyped
+        if(lblPass2.getForeground()==Color.red){
+            lblPass2.setForeground(Color.black);
+        }
+    }//GEN-LAST:event_txtPass1KeyTyped
+
     private void esconderPass(){
         txtPass1.setEchoChar('\u25cf');
         txtPass1.setFont(new Font("Segoe UI", 0, 12));
@@ -409,8 +461,28 @@ public class Empleados extends javax.swing.JPanel {
     }
     
     private boolean esVacio(){
-        return((txtNombre.getText().isBlank()||txtApellido.getText().isBlank()||txtRFC.getText().isBlank()
-           ||txtRFC.getText().isBlank())||txtPass1.getText().isBlank()||txtPass2.getText().isBlank());
+        boolean ret = false;
+        if(txtNombre.getText().isBlank()){
+            txtNombre.requestFocus();
+            lblNombre.setForeground(Color.red);
+            ret = true;
+        }
+        if(txtUser.getText().isBlank()){
+            txtUser.requestFocus();
+            lblUsuario.setForeground(Color.red);
+            ret = true;
+        }
+        if(txtPass1.getText().isBlank()){
+            txtPass1.requestFocus();
+            lblPass1.setForeground(Color.red);
+            ret = true;
+        }if(txtPass2.getText().isBlank()){
+            txtPass2.requestFocus();
+            lblPass2.setForeground(Color.red);
+            ret = true;
+        }
+        
+        return ret;
     }
     
     private boolean coincidePass(){

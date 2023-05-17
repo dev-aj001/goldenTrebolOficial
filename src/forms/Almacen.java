@@ -4,8 +4,13 @@
  */
 package forms;
 
-import Clases.Validar;
+
+import bd.ConexionSQL;
+import bd.Producto;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -13,17 +18,40 @@ import javax.swing.JOptionPane;
  */
 public class Almacen extends javax.swing.JPanel {
 
-    /**
-     * Creates new form Almacen
-     */
+    //Variables globales
+    private ConexionSQL mDB;
+    private DefaultTableModel tbm;
+    private LocalDate fechaActual;
+    
     public Almacen() {
         initComponents();
         setOpaque(false);
         
+        initConexion();
+        init();
+    }
+    
+    private void initConexion(){
+        //Iniciar la conexion con el servidor: poner credenciales y nombre de la base de datos
+        mDB = new ConexionSQL("treboldb", "root", "C19400437");
+    }
+    
+    private void init(){
         txtCodigo.setEditable(false);
         txtDescripcion.setEditable(false);
         txtCaduca.setEditable(false);
         txtfecha.setEditable(false);
+        initTabla();
+    }
+    
+    private void initTabla(){
+        tbm = new DefaultTableModel();
+        tbm.addColumn("codigo");
+        tbm.addColumn("descripción");
+        tbm.addColumn("Existencia");
+        tbm.addColumn("Minimo");
+        tbm.addColumn("Fecha Cad.");
+        CargarProductos();
     }
 
     /**
@@ -280,4 +308,40 @@ public class Almacen extends javax.swing.JPanel {
     private javax.swing.JTextField txtDescripcion;
     private javax.swing.JTextField txtfecha;
     // End of variables declaration//GEN-END:variables
+
+
+    private void CargarProductos(){
+        ArrayList Productos;
+        Producto mProduc;
+        if(mDB.Conectar()){
+            String [] Datos = new String[5];
+            Productos =mDB.GetProductos();
+            if(Productos != null){
+                for (int i = 0; i < Productos.size(); i++) {
+                    mProduc = (Producto) Productos.get(i);
+                    Datos[0]=String.valueOf(mProduc.getCodigo());
+                    Datos[1]=String.valueOf(mProduc.getDescripcion());
+                    Datos[2]=String.valueOf(mProduc.getExistencia());
+                    Datos[3]=String.valueOf(mProduc.getMinimo());
+                    Datos[4]=String.valueOf(mProduc.getFecha());
+                    tbm.addRow(Datos);
+                }
+                
+                this.tabla.setModel(tbm);
+                this.tabla.getColumnModel().getColumn(0).setPreferredWidth(42);
+                this.tabla.getColumnModel().getColumn(1).setPreferredWidth(42);
+                this.tabla.getColumnModel().getColumn(2).setPreferredWidth(42);
+                this.tabla.getColumnModel().getColumn(3).setPreferredWidth(15);
+                this.tabla.getColumnModel().getColumn(4).setPreferredWidth(15);
+                
+                if(this.tabla.getRowCount()>0){
+                    this.tabla.setRowSelectionInterval(0, 0);
+                }
+            }else{
+                JOptionPane.showMessageDialog(null, "Error al cargar productos");
+            }
+        }
+        
+    }
+    
 }

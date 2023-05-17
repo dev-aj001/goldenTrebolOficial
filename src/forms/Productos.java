@@ -128,9 +128,22 @@ public class Productos extends javax.swing.JPanel {
         roundPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
 
         txtCodigo.setToolTipText("Codigo:\nCodigo de barras o Codigo de identificacion del producto");
+        txtCodigo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtCodigoKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtCodigoKeyTyped(evt);
+            }
+        });
         roundPanel1.add(txtCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 60, 210, -1));
 
         txtDescripcion.setToolTipText("Descripcion del producto.\nDescribe aqui el nombre, tamaño, y otros aspectos que decriban el producto");
+        txtDescripcion.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtDescripcionKeyTyped(evt);
+            }
+        });
         roundPanel1.add(txtDescripcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 90, 210, -1));
 
         jLabel12.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -532,18 +545,46 @@ public class Productos extends javax.swing.JPanel {
         
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void txtCodigoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodigoKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCodigoKeyPressed
+
+    private void txtCodigoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodigoKeyTyped
+        if(lblCodigo.getForeground()==Color.red){
+            lblCodigo.setForeground(Color.black);
+        }
+    }//GEN-LAST:event_txtCodigoKeyTyped
+
+    private void txtDescripcionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDescripcionKeyTyped
+        if(lblDescripcion.getForeground()==Color.red){
+            lblDescripcion.setForeground(Color.black);
+        }
+    }//GEN-LAST:event_txtDescripcionKeyTyped
+
     private boolean validarTxt(){
         if(esVacio()){
             JOptionPane.showMessageDialog(this, "Llena todos los campos");
             return false;
         }
+        
         return true;
     }
     
     
     
     private boolean esVacio(){
-        return((txtCodigo.getText().isBlank()||txtDescripcion.getText().isBlank()));
+        boolean ret = false;
+        if(txtCodigo.getText().isBlank()){
+            txtCodigo.requestFocus();
+            lblCodigo.setForeground(Color.red);
+            ret = true;
+        }
+        if(txtDescripcion.getText().isBlank()){
+            txtCodigo.requestFocus();
+            lblDescripcion.setForeground(Color.red);
+            ret = true;
+        }
+        return ret;
     }
     
     private void CargarProductos(){
