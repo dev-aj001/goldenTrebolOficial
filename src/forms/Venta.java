@@ -7,8 +7,14 @@ package forms;
 import Clases.Validar;
 import bd.ConexionSQL;
 import bd.Producto;
+import imprimir.FilaEditable;
+import imprimir.Ticket;
 import java.awt.event.KeyEvent;
+import java.awt.print.PrinterException;
+import java.awt.print.PrinterJob;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -77,12 +83,13 @@ public class Venta extends javax.swing.JPanel {
         btnCobrar = new javax.swing.JButton();
         roundPanel2 = new swing.RoundPanel();
         jLabel9 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tablaTicket = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         lblTotal = new javax.swing.JLabel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        ticket = new imprimir.Ticket();
         btnQuitar = new javax.swing.JButton();
         btncancelar = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         setLayout(new java.awt.BorderLayout());
 
@@ -184,24 +191,6 @@ public class Venta extends javax.swing.JPanel {
         jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel9.setText("Ticket de venta");
 
-        tablaTicket.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        tablaTicket.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tablaTicketMouseClicked(evt);
-            }
-        });
-        jScrollPane1.setViewportView(tablaTicket);
-
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel1.setText("Total:");
 
@@ -210,6 +199,8 @@ public class Venta extends javax.swing.JPanel {
         lblTotal.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblTotal.setText("$00.00");
 
+        jScrollPane3.setViewportView(ticket);
+
         javax.swing.GroupLayout roundPanel2Layout = new javax.swing.GroupLayout(roundPanel2);
         roundPanel2.setLayout(roundPanel2Layout);
         roundPanel2Layout.setHorizontalGroup(
@@ -217,12 +208,12 @@ public class Venta extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, roundPanel2Layout.createSequentialGroup()
                 .addGap(30, 30, 30)
                 .addGroup(roundPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, 320, Short.MAX_VALUE)
                     .addGroup(roundPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblTotal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                        .addComponent(lblTotal, javax.swing.GroupLayout.DEFAULT_SIZE, 233, Short.MAX_VALUE)))
                 .addGap(30, 30, 30))
         );
         roundPanel2Layout.setVerticalGroup(
@@ -231,16 +222,12 @@ public class Venta extends javax.swing.JPanel {
                 .addGap(12, 12, 12)
                 .addComponent(jLabel9)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 402, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(roundPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(roundPanel2Layout.createSequentialGroup()
-                        .addGap(31, 31, 31)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(roundPanel2Layout.createSequentialGroup()
-                        .addGap(8, 8, 8)
-                        .addComponent(lblTotal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addContainerGap())))
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(roundPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblTotal)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
 
         btnQuitar.setBackground(new java.awt.Color(255, 204, 0));
@@ -258,6 +245,13 @@ public class Venta extends javax.swing.JPanel {
         btncancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btncancelarActionPerformed(evt);
+            }
+        });
+
+        jButton1.setText("jButton1");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
             }
         });
 
@@ -279,7 +273,9 @@ public class Venta extends javax.swing.JPanel {
                         .addComponent(btnQuitar, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btncancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(685, Short.MAX_VALUE))))
+                        .addGap(177, 177, 177)
+                        .addComponent(jButton1)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         panelShadow1Layout.setVerticalGroup(
             panelShadow1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -292,7 +288,8 @@ public class Venta extends javax.swing.JPanel {
                 .addGroup(panelShadow1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCobrar, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnQuitar, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btncancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btncancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1))
                 .addGap(15, 15, 15))
         );
 
@@ -301,11 +298,20 @@ public class Venta extends javax.swing.JPanel {
 
     private void btnCobrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCobrarActionPerformed
         
+        PrinterJob job = PrinterJob.getPrinterJob();
+        
+        job.setPrintable(ticket);
+        
+        if(job.printDialog()){
+            try {
+                job.print();
+            } catch (PrinterException ex) {
+                Logger.getLogger(Venta.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }else{
+            JOptionPane.showMessageDialog(null, "no se imprimio el ticket");
+        }
     }//GEN-LAST:event_btnCobrarActionPerformed
-
-    private void tablaTicketMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaTicketMouseClicked
-
-    }//GEN-LAST:event_tablaTicketMouseClicked
 
     private void btnQuitarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuitarActionPerformed
 
@@ -329,9 +335,13 @@ public class Venta extends javax.swing.JPanel {
     private void txtCantidadKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCantidadKeyPressed
         if(evt.getExtendedKeyCode()== KeyEvent.VK_ENTER){
             CargarTicket();
-            sumarColumna();
+            //sumarColumna();
         }
     }//GEN-LAST:event_txtCantidadKeyPressed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     ///cambiar por metodo de consulta en tiempo real
     private void CargarProducto(){
@@ -374,23 +384,15 @@ public class Venta extends javax.swing.JPanel {
         
         Producto mProduc;
         if(exis>cant){
-            String [] Datos = new String[7];
+            
             mProduc = mDB.GetProducto(txtCodigo.getText());
             if(mProduc != null){
-                Datos[0]=txtCantidad.getText();
-                Datos[1]=String.valueOf(mProduc.getDescripcion());
-                Datos[2]=String.valueOf(mProduc.getPrecioVen()*cant);
-                tbm2.addRow(Datos);
+                String descrip = mProduc.getDescripcion();
+                Double precio = (mProduc.getPrecioVen()*cant);
+                
+                ticket.agregarProducto(descrip, cant, precio);
             
                 
-                this.tablaTicket.setModel(tbm2);
-                this.tablaTicket.getColumnModel().getColumn(0).setPreferredWidth(30);
-                this.tablaTicket.getColumnModel().getColumn(1).setPreferredWidth(30);
-                this.tablaTicket.getColumnModel().getColumn(2).setPreferredWidth(30);
-                
-                if(this.tablaTicket.getRowCount()>0){
-                    this.tablaTicket.setRowSelectionInterval(0, 0);
-                }
             }
         }else{
                 JOptionPane.showMessageDialog(null, "No hay suficiente existencia de este producto");
@@ -415,12 +417,7 @@ public class Venta extends javax.swing.JPanel {
         }
     }
     
-    private void LimpiarTabla2(){
-        for (int i = 0; i < tablaTicket.getRowCount(); i++) {
-            tbm2.removeRow(i);
-            i-=1;
-        }
-    }
+    
     
     private void LimpiarTxt(){
         txtCodigo.setText("");
@@ -435,21 +432,22 @@ public class Venta extends javax.swing.JPanel {
     private javax.swing.JButton btnComun;
     private javax.swing.JButton btnQuitar;
     private javax.swing.JButton btncancelar;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JLabel lblTotal;
     private swing.PanelShadow panelShadow1;
     private swing.RoundPanel roundPanel1;
     private swing.RoundPanel roundPanel2;
     private swing.RoundPanel roundPanel3;
     private javax.swing.JTable tablaProduc;
-    private javax.swing.JTable tablaTicket;
+    private imprimir.Ticket ticket;
     private javax.swing.JTextField txtCantidad;
     private javax.swing.JTextField txtCodigo;
     // End of variables declaration//GEN-END:variables

@@ -4,7 +4,7 @@
  */
 package forms;
 
-import Clases.ValidarCredenciales;
+
 import bd.ConexionSQL;
 import bd.Configurar;
 import javax.swing.JOptionPane;
