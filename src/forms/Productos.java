@@ -375,11 +375,15 @@ public class Productos extends javax.swing.JPanel {
                 .addGroup(panelShadow1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(roundPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(roundPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 495, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(30, 30, 30)
-                .addGroup(panelShadow1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnGuardar)
-                    .addComponent(btnEliminar)
-                    .addComponent(btnModificar))
+                .addGroup(panelShadow1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelShadow1Layout.createSequentialGroup()
+                        .addGap(30, 30, 30)
+                        .addGroup(panelShadow1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnGuardar)
+                            .addComponent(btnEliminar)))
+                    .addGroup(panelShadow1Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(btnModificar)))
                 .addGap(32, 32, 32))
         );
 
@@ -441,7 +445,8 @@ public class Productos extends javax.swing.JPanel {
         String codigo="";
         if(tabla.getSelectedRow() != -1){
             codigo = tbm.getValueAt(tabla.getSelectedRow(), 0).toString();
-            if(JOptionPane.showConfirmDialog(null, "Esta seguro que desea eliminar este producto?: "+codigo+"\nTodos los datos de almacen seran eliminados","Eliminar",JOptionPane.WARNING_MESSAGE,JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
+            String nombre =  tbm.getValueAt(tabla.getSelectedRow(), 1).toString();
+            if(JOptionPane.showConfirmDialog(null, "Esta seguro que desea eliminar este producto?: "+nombre+"\nTodos los datos de almacen seran eliminados","Eliminar",JOptionPane.WARNING_MESSAGE,JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
                 if(mDB.Conectar()){
                     mDB.EliminarProducto(codigo);
                     LimpiarTabla();
@@ -456,7 +461,8 @@ public class Productos extends javax.swing.JPanel {
         String codigo="";
         if(tabla.getSelectedRow() != -1){
             codigo = tbm.getValueAt(tabla.getSelectedRow(), 0).toString();
-            if(JOptionPane.showConfirmDialog(null, "Desea modificar este producto?: "+codigo,"Modificar",JOptionPane.WARNING_MESSAGE,JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
+            String nombre =  tbm.getValueAt(tabla.getSelectedRow(), 1).toString();
+            if(JOptionPane.showConfirmDialog(null, "Desea modificar este producto?: "+nombre,"Modificar",JOptionPane.WARNING_MESSAGE,JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
                 if(mDB.Conectar()){
                     Producto mProduc= new Producto();
                     mProduc.setCodigo(txtCodigo.getText());
@@ -467,7 +473,7 @@ public class Productos extends javax.swing.JPanel {
                     mProduc.setDepartameto(cmbDepartamento.getSelectedItem().toString());
                     mProduc.setVentaPor((btnPieza.isSelected())?1:0); //1 por pieza, 0 por granel
                     mProduc.setFecha(getFecha());
-                    mDB.ModificarProducto(mProduc);
+                    mDB.ModificarProductoExistencia(mProduc);
                     LimpiarTabla();
                     CargarProductos();
                     LimpiarTxt();

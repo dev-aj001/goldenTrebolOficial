@@ -5,10 +5,14 @@
 package forms;
 
 
+import Clases.RenderPintar;
 import bd.ConexionSQL;
 import bd.Producto;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.Locale;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -29,6 +33,7 @@ public class Almacen extends javax.swing.JPanel {
         
         initConexion();
         init();
+        tabla.getColumnModel().getColumn(4).setCellRenderer(new RenderPintar());
     }
     
     private void initConexion(){
@@ -264,11 +269,40 @@ public class Almacen extends javax.swing.JPanel {
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void tablaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaMouseClicked
-
+        txtCodigo.setText(tbm.getValueAt(tabla.getSelectedRow(), 0).toString());
+        txtDescripcion.setText(tbm.getValueAt(tabla.getSelectedRow(), 1).toString());
+        spnActual.setValue(Integer.valueOf(tbm.getValueAt(tabla.getSelectedRow(), 2).toString()));
+        spnMinimo.setValue(Integer.valueOf(tbm.getValueAt(tabla.getSelectedRow(), 3).toString()));
+        txtfecha.setText(tbm.getValueAt(tabla.getSelectedRow(), 4).toString());
+        
+        DateTimeFormatter formato = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate fCaduca = LocalDate.parse(txtfecha.getText(),formato);
+        fechaActual = LocalDate.now();
+        long dias =  ChronoUnit.DAYS.between(fechaActual, fCaduca);
+        
+        txtCaduca.setText(dias+" días");
+        
     }//GEN-LAST:event_tablaMouseClicked
 
     private void btnEliminar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminar1ActionPerformed
-
+        String codigo="";
+        if(tabla.getSelectedRow() != -1){
+            codigo = tbm.getValueAt(tabla.getSelectedRow(), 0).toString();
+            String nombre = tbm.getValueAt(tabla.getSelectedRow(), 1).toString();
+            if(JOptionPane.showConfirmDialog(null, "Desea modificar la existncia de este producto?: "+nombre,"Si",JOptionPane.WARNING_MESSAGE,JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
+                if(mDB.Conectar()){
+                    Producto mProduc= new Producto();
+                    mProduc.setCodigo(txtCodigo.getText());
+                    mProduc.setExistencia((int)spnActual.getValue());
+                    mProduc.setMinimo((int)spnMinimo.getValue());
+                    
+                    mDB.ModificarProductoExistencia(mProduc);
+                    LimpiarTabla();
+                    CargarProductos();
+                    LimpiarTxt();
+                }
+            }
+        }
     }//GEN-LAST:event_btnEliminar1ActionPerformed
 
     private void txtCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCodigoActionPerformed
@@ -309,6 +343,21 @@ public class Almacen extends javax.swing.JPanel {
     private javax.swing.JTextField txtfecha;
     // End of variables declaration//GEN-END:variables
 
+    private void LimpiarTabla(){
+        for (int i = 0; i < tabla.getRowCount(); i++) {
+            tbm.removeRow(i);
+            i-=1;
+        }
+    }
+    
+    private void LimpiarTxt(){
+        txtCodigo.setText("");
+        txtDescripcion.setText("");
+        spnActual.setValue(0);
+        spnMinimo.setValue(0);
+        txtCaduca.setText("");
+        txtfecha.setText("");
+    }
 
     private void CargarProductos(){
         ArrayList Productos;

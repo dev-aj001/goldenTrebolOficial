@@ -102,6 +102,16 @@ public class Ticket extends javax.swing.JPanel implements Printable{
     private void setSubtotal(){
         txtSubtotal.setText("$"+formato.format(getTotal()*0.84));
     }
+    
+    public void limpiar(){
+        int lastIndex = pnlProductos.getComponentCount();
+        
+        while (lastIndex>0) {
+            quitarProducto();
+            lastIndex--;
+            System.out.println("Productos: " + lastIndex);
+        }
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.

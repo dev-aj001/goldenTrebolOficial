@@ -379,6 +379,32 @@ public class ConexionSQL {
             System.out.println(e);
         }
     }
+    
+    public void reducirExistencia(String codigo, int numero){
+        try {
+            mStatement = mConection.createStatement();
+            mStatement.execute("UPDATE producto SET "
+                    +"existencia = existencia - "+numero+" "
+                    +"WHERE codigo='"+codigo+"'"
+            );
+            
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+    
+    public void aumentarExistencia(String codigo, int numero){
+        try {
+            mStatement = mConection.createStatement();
+            mStatement.execute("UPDATE producto SET "
+                    +"existencia = existencia + "+numero+" "
+                    +"WHERE codigo='"+codigo+"'"
+            );
+            
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
        
     public void modificarConfiguracion(Configurar mConfig){
         try {

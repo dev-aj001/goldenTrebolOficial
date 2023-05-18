@@ -314,10 +314,16 @@ public class Venta extends javax.swing.JPanel {
         }else{
             JOptionPane.showMessageDialog(null, "no se imprimio el ticket");
         }
+        
+        limpiarTicket();
+        LimpiarTxt();
+        LimpiarTxt();
     }//GEN-LAST:event_btnCobrarActionPerformed
 
     private void btnQuitarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuitarActionPerformed
         ticket.quitarProducto();
+        reponerExistencia();
+        LimpiarTabla1();
     }//GEN-LAST:event_btnQuitarActionPerformed
 
     private void btncancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncancelarActionPerformed
@@ -339,6 +345,7 @@ public class Venta extends javax.swing.JPanel {
         if(evt.getExtendedKeyCode()== KeyEvent.VK_ENTER){
             CargarTicket();
             lblTotal.setText("$"+formato.format(ticket.getTotal()));
+            
         }
     }//GEN-LAST:event_txtCantidadKeyPressed
 
@@ -358,7 +365,7 @@ public class Venta extends javax.swing.JPanel {
                 Datos[2]=txtCantidad.getText();
                 Datos[3]=String.valueOf(mProduc.getPrecioVen());
                 Datos[4]=String.valueOf(mProduc.getDepartameto());
-                Datos[5]="10";
+                Datos[5]=String.valueOf(mProduc.getExistencia());;
                 tbm1.addRow(Datos);
             
                 
@@ -386,7 +393,7 @@ public class Venta extends javax.swing.JPanel {
         
         
         Producto mProduc;
-        if(exis>cant){
+        if(exis>=cant){
             
             mProduc = mDB.GetProducto(txtCodigo.getText());
             if(mProduc != null){
@@ -394,7 +401,10 @@ public class Venta extends javax.swing.JPanel {
                 Double precio = (mProduc.getPrecioVen()*cant);
                 
                 ticket.agregarProducto(descrip, cant, precio);
-            
+                
+                quitarExistencia();
+                LimpiarTabla1();
+                CargarProducto();
                 
             }
         }else{
@@ -403,14 +413,16 @@ public class Venta extends javax.swing.JPanel {
         
     }
     
-    private void sumarColumna(){
-        Double fila = 0d;
-        Double total = 0d;
-        for (int i = 0; i < tbm2.getRowCount(); i++) {
-            fila = Double.parseDouble(tbm2.getValueAt(i, 2).toString());
-            total += fila;
+    private void quitarExistencia(){
+        if(mDB.Conectar()){
+            mDB.reducirExistencia(txtCodigo.getText(), Integer.parseInt(txtCantidad.getText()));
         }
-        lblTotal.setText(total.toString());
+    }
+    
+    private void reponerExistencia(){
+        if(mDB.Conectar()){
+            mDB.aumentarExistencia(txtCodigo.getText(), Integer.parseInt(txtCantidad.getText()));
+        }
     }
     
     private void LimpiarTabla1(){
@@ -420,7 +432,10 @@ public class Venta extends javax.swing.JPanel {
         }
     }
     
-    
+    private void limpiarTicket(){
+        ticket.limpiar();
+        lblTotal.setText("$00.00");
+    }
     
     private void LimpiarTxt(){
         txtCodigo.setText("");

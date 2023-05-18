@@ -1,6 +1,8 @@
 
 package Clases;
 
+import bd.ConexionSQL;
+import bd.Configurar;
 import java.awt.Color;
 import java.awt.Component;
 import java.text.DateFormat;
@@ -15,30 +17,51 @@ import javax.swing.table.DefaultTableCellRenderer;
 
 
 public class RenderPintar extends DefaultTableCellRenderer{
+    
+    private ConexionSQL mDB;
+    
 
     @Override
     public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
         
         Component componente = (JLabel)super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-        
+        mDB = new ConexionSQL("treboldb", "root", "C19400437");
         
         String fechaStr = (String)value;
         LocalDate fecha = LocalDate.now();
         DateTimeFormatter formato = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate fechaCad = LocalDate.parse(fechaStr, formato);
-        
+               
         long diffDias = ChronoUnit.DAYS.between(fecha, fechaCad);
         
         System.out.println("Diferencia de dias: " + diffDias);
         
-        if(diffDias<30){
-            componente.setBackground(new Color(255, 153, 51));
-            if(diffDias<0)
-                componente.setBackground(new Color(255, 51, 51));
-        }else{
-            componente.setBackground(new Color(102,204,102));
+        int dias = 0;
+        boolean activo = false;
+        
+        Configurar config;
+        if(mDB.Conectar()){
+            config = mDB.GetConfig(1);
+            if(config != null){
+                dias = config.getDias();
+                activo = (config.getAlerta()==1);
+                }
         }
         
+        if(activo){
+            if(diffDias<dias){
+                componente.setBackground(new Color(255, 153, 51));
+                if(diffDias<0)
+                    componente.setBackground(new Color(255, 51, 51));
+            }else{
+                componente.setBackground(new Color(102,204,102));
+            }
+        }else{
+            componente.setBackground(table.getBackground());
+            if(isSelected){
+                componente.setForeground(Color.black);
+            }
+        }
         return componente;
     }
     
