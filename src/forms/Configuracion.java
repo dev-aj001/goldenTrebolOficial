@@ -42,6 +42,7 @@ public class Configuracion extends javax.swing.JPanel {
                     mConfig.setAlerta((rbtnSiAlamcen.isSelected())?1:0);
                     mConfig.setGanancia((Double)spnGanancia.getValue());
                     mConfig.setDb(txtDataBase.getText());
+                    mConfig.setDias((int)spnDias.getValue());
                     
                     mDB.modificarConfiguracion(mConfig);
                     cargarConfig();
@@ -104,6 +105,9 @@ public class Configuracion extends javax.swing.JPanel {
         jLabel23 = new javax.swing.JLabel();
         rbtnSiAlamcen = new javax.swing.JRadioButton();
         rbtnNoAlmacen = new javax.swing.JRadioButton();
+        jLabel24 = new javax.swing.JLabel();
+        spnDias = new javax.swing.JSpinner();
+        jLabel25 = new javax.swing.JLabel();
 
         setLayout(new java.awt.BorderLayout());
 
@@ -359,6 +363,11 @@ public class Configuracion extends javax.swing.JPanel {
         jLabel23.setText("Mostrar alertas de minimos en almacen");
 
         rbtnSiAlamcen.setText("Si");
+        rbtnSiAlamcen.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                rbtnSiAlamcenStateChanged(evt);
+            }
+        });
 
         rbtnNoAlmacen.setText("No");
         rbtnNoAlmacen.addActionListener(new java.awt.event.ActionListener() {
@@ -366,6 +375,12 @@ public class Configuracion extends javax.swing.JPanel {
                 rbtnNoAlmacenActionPerformed(evt);
             }
         });
+
+        jLabel24.setText("Días de antelación:");
+
+        spnDias.setModel(new javax.swing.SpinnerNumberModel(0, 0, null, 1));
+
+        jLabel25.setText("Días antes");
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -380,7 +395,13 @@ public class Configuracion extends javax.swing.JPanel {
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addComponent(rbtnSiAlamcen)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(rbtnNoAlmacen)))
+                        .addComponent(rbtnNoAlmacen))
+                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel4Layout.createSequentialGroup()
+                            .addComponent(spnDias, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jLabel25, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jLabel24, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(696, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
@@ -396,7 +417,13 @@ public class Configuracion extends javax.swing.JPanel {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(rbtnSiAlamcen)
                     .addComponent(rbtnNoAlmacen))
-                .addContainerGap(296, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jLabel24)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(spnDias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel25))
+                .addContainerGap(234, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Almacen", jPanel4);
@@ -470,6 +497,14 @@ public class Configuracion extends javax.swing.JPanel {
         
     }//GEN-LAST:event_spnGananciaStateChanged
 
+    private void rbtnSiAlamcenStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_rbtnSiAlamcenStateChanged
+        if(rbtnSiAlamcen.isSelected()){
+            spnDias.setEnabled(true);
+        }else{
+            spnDias.setEnabled(false);
+        }
+    }//GEN-LAST:event_rbtnSiAlamcenStateChanged
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnGuardar;
@@ -489,6 +524,8 @@ public class Configuracion extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
+    private javax.swing.JLabel jLabel24;
+    private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -510,6 +547,7 @@ public class Configuracion extends javax.swing.JPanel {
     private javax.swing.JRadioButton rbtnSiAlamcen;
     private javax.swing.JRadioButton rbtnSiVenta;
     private swing.RoundPanel roundPanel2;
+    private javax.swing.JSpinner spnDias;
     private javax.swing.JSpinner spnGanancia;
     private javax.swing.JTextField txtCorreo;
     private javax.swing.JTextField txtDataBase;
@@ -544,6 +582,7 @@ public class Configuracion extends javax.swing.JPanel {
                     }
                     
                     spnGanancia.setValue(config.getGanancia());
+                    spnDias.setValue(config.getDias());
                     
                     txtDataBase.setText(config.getDb());
                     

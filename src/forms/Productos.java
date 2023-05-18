@@ -4,7 +4,9 @@
  */
 package forms;
 
+import Clases.RenderPintar;
 import bd.ConexionSQL;
+import bd.Configurar;
 import bd.Producto;
 import java.awt.Color;
 import java.time.LocalDate;
@@ -38,6 +40,7 @@ public class Productos extends javax.swing.JPanel {
         init();
         initTabla();
         setFechaActual();
+        tabla.getColumnModel().getColumn(7).setCellRenderer(new RenderPintar());
     }
     
     private void initTabla(){
@@ -60,7 +63,7 @@ public class Productos extends javax.swing.JPanel {
         btnPieza.setSelected(true);
         costo = (Double)spnCosto.getValue();
         venta = (Double)spnVenta.getValue();
-        ganancia = (Double)spnGanancia.getValue();
+        getGanancia();
         fechaActual = LocalDate.now();
     }
 
@@ -200,7 +203,6 @@ public class Productos extends javax.swing.JPanel {
         });
         roundPanel1.add(spnVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 260, 80, -1));
 
-        spnGanancia.setModel(new javax.swing.SpinnerNumberModel(10.0d, null, null, 5.0d));
         spnGanancia.setAutoscrolls(true);
         spnGanancia.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
@@ -258,6 +260,7 @@ public class Productos extends javax.swing.JPanel {
         jLabel19.setText("Mes");
         roundPanel1.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 400, 60, 20));
 
+        cbFecha.setSelected(true);
         cbFecha.setText("Si");
         cbFecha.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
@@ -570,7 +573,21 @@ public class Productos extends javax.swing.JPanel {
         return true;
     }
     
-    
+    private void getGanancia(){
+        Configurar config;
+        
+        if(mDB.Conectar()){
+            
+            config = mDB.GetConfig(1);
+            if(config != null){
+                spnGanancia.setValue(config.getGanancia());
+                ganancia = config.getGanancia();
+                System.out.println("Ganancia: " + ganancia);
+                }
+        }else{
+            System.out.println("");
+        }
+    }
     
     private boolean esVacio(){
         boolean ret = false;

@@ -12,6 +12,7 @@ import imprimir.Ticket;
 import java.awt.event.KeyEvent;
 import java.awt.print.PrinterException;
 import java.awt.print.PrinterJob;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -27,6 +28,8 @@ public class Venta extends javax.swing.JPanel {
     private ConexionSQL mDB;
     private DefaultTableModel tbm1;
     private DefaultTableModel tbm2;
+    
+    DecimalFormat formato = new DecimalFormat("0.00");
     
     public Venta() {
         initComponents();
@@ -314,7 +317,7 @@ public class Venta extends javax.swing.JPanel {
     }//GEN-LAST:event_btnCobrarActionPerformed
 
     private void btnQuitarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuitarActionPerformed
-
+        ticket.quitarProducto();
     }//GEN-LAST:event_btnQuitarActionPerformed
 
     private void btncancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncancelarActionPerformed
@@ -335,7 +338,7 @@ public class Venta extends javax.swing.JPanel {
     private void txtCantidadKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCantidadKeyPressed
         if(evt.getExtendedKeyCode()== KeyEvent.VK_ENTER){
             CargarTicket();
-            //sumarColumna();
+            lblTotal.setText("$"+formato.format(ticket.getTotal()));
         }
     }//GEN-LAST:event_txtCantidadKeyPressed
 

@@ -254,9 +254,6 @@
             </Component>
             <Component class="javax.swing.JSpinner" name="spnGanancia">
               <Properties>
-                <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
-                  <SpinnerModel initial="10.0" numberType="java.lang.Double" stepSize="5.0" type="number"/>
-                </Property>
                 <Property name="autoscrolls" type="boolean" value="true"/>
               </Properties>
               <Events>
@@ -418,6 +415,7 @@
             </Component>
             <Component class="javax.swing.JCheckBox" name="cbFecha">
               <Properties>
+                <Property name="selected" type="boolean" value="true"/>
                 <Property name="text" type="java.lang.String" value="Si"/>
               </Properties>
               <Events>

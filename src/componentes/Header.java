@@ -25,6 +25,7 @@ public class Header extends javax.swing.JPanel {
 
         buttonBadges1 = new swing.ButtonBadges();
         buttonBadges2 = new swing.ButtonBadges();
+        relojHiloComponente1 = new componentes.RelojHiloComponente();
 
         setMaximumSize(new java.awt.Dimension(1200, 90));
 
@@ -48,12 +49,16 @@ public class Header extends javax.swing.JPanel {
             }
         });
 
+        relojHiloComponente1.setFont(new java.awt.Font("Source Code Pro Medium", 1, 18)); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(1013, Short.MAX_VALUE)
+                .addContainerGap()
+                .addComponent(relojHiloComponente1, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 869, Short.MAX_VALUE)
                 .addComponent(buttonBadges2, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(buttonBadges1, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -63,6 +68,10 @@ public class Header extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(buttonBadges1, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
             .addComponent(buttonBadges2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(relojHiloComponente1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -91,5 +100,6 @@ public class Header extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private swing.ButtonBadges buttonBadges1;
     private swing.ButtonBadges buttonBadges2;
+    private componentes.RelojHiloComponente relojHiloComponente1;
     // End of variables declaration//GEN-END:variables
 }

@@ -22,6 +22,7 @@ public class Configurar {
     private String pagina;
     private int iva;
     private int alerta;
+    private int dias;
 
     public int getId() {
         return id;
@@ -118,6 +119,16 @@ public class Configurar {
     public void setAlerta(int alerta) {
         this.alerta = alerta;
     }
+
+    public int getDias() {
+        return dias;
+    }
+
+    public void setDias(int dias) {
+        this.dias = dias;
+    }
+    
+    
 
     @Override
     public String toString() {

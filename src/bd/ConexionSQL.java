@@ -189,6 +189,7 @@ public class ConexionSQL {
                 mConfig.setPagina(mResultSet.getString("pagina"));
                 mConfig.setIva(mResultSet.getInt("iva"));
                 mConfig.setAlerta(mResultSet.getInt("alerta"));
+                mConfig.setDias(mResultSet.getInt("dias"));
                 return mConfig;
             }
             
@@ -394,7 +395,7 @@ public class ConexionSQL {
                     +"pagina = '"+mConfig.getPagina()+"', "
                     +"iva = "+mConfig.getIva()+", "
                     +"alerta = "+mConfig.getAlerta()+", "
-                    +"alerta = '"+mConfig.getAlerta()+"' "
+                    +"dias = "+mConfig.getDias()+" "
                     +"WHERE idconfig = 1 "
             );
             

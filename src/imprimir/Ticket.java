@@ -12,6 +12,9 @@ import java.awt.print.PrinterException;
 import bd.ConexionSQL;
 import bd.Configurar;
 import java.text.DecimalFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 /**
  *
@@ -21,6 +24,7 @@ public class Ticket extends javax.swing.JPanel implements Printable{
 
     private static String user;
     private ConexionSQL mDB;
+    private DateTimeFormatter formatoFecha = DateTimeFormatter.ofPattern("dd/MM/yyy HH:mm");
     
     DecimalFormat formato = new DecimalFormat("0.00");
     
@@ -34,6 +38,7 @@ public class Ticket extends javax.swing.JPanel implements Printable{
     private void cargarTicket(){
         Configurar config;
         
+        
         if(mDB.Conectar()){
             
             config = mDB.GetConfig(1);
@@ -44,7 +49,7 @@ public class Ticket extends javax.swing.JPanel implements Printable{
                 txtCorreo.setText("Correo: " + config.getCorreo());
                 txtTel.setText("Telefono: " + config.getTel1() + " " + config.getTel2());
                 txtPagina.setText("Pagina: " + config.getPagina());
-                    
+                actualizarFecha();
                 }
         }else{
             System.out.println("");
@@ -59,14 +64,34 @@ public class Ticket extends javax.swing.JPanel implements Printable{
         setTotal(precio);
         setIVA();
         setSubtotal();
+        actualizarFecha();
+    }
+    
+    public void quitarProducto(){
+        int lastIndex = pnlProductos.getComponentCount() -1;
+        FilaEditable fila = (FilaEditable)pnlProductos.getComponent(lastIndex);
+        Double precio = Double.parseDouble(fila.getTextoLabel3());
+        pnlProductos.remove(fila);
+        pnlProductos.revalidate();
+        pnlProductos.repaint();
+        
+        setTotal(-precio);
+        setIVA();
+        setSubtotal();
+        actualizarFecha();
+    }
+    
+    private void actualizarFecha(){
+        LocalDateTime fecha = LocalDateTime.now();
+        String fechaFormated = fecha.format(formatoFecha);
+        txtFecha.setText(fechaFormated);
     }
     
     private void setTotal(Double total){
-        System.out.println(getTotal());
         txtTotal.setText("$"+formato.format(getTotal()+total));
     }
     
-    private Double getTotal(){
+    public Double getTotal(){
         return Double.parseDouble(txtTotal.getText().substring(1));
     }
     
@@ -114,6 +139,7 @@ public class Ticket extends javax.swing.JPanel implements Printable{
         jLabel30 = new javax.swing.JLabel();
         txtCambio = new javax.swing.JLabel();
         txtDireccion4 = new javax.swing.JLabel();
+        txtFecha = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -252,24 +278,27 @@ public class Ticket extends javax.swing.JPanel implements Printable{
                 .addContainerGap(8, Short.MAX_VALUE))
         );
 
+        txtFecha.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        txtFecha.setText("fecha");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(pnlProductos, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtSucursal, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtDireccion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtContacto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtRFC, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtTel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtPagina, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtCorreo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jSeparator1)
+                    .addComponent(pnlProductos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtSucursal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtDireccion, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtContacto, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtRFC, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtTel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtPagina, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtCorreo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(113, 113, 113)
@@ -283,7 +312,8 @@ public class Ticket extends javax.swing.JPanel implements Printable{
                                 .addGap(18, 18, 18)
                                 .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtFecha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -305,7 +335,9 @@ public class Ticket extends javax.swing.JPanel implements Printable{
                 .addComponent(txtPagina)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtCorreo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(8, 8, 8)
+                .addComponent(txtFecha)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txt)
                     .addComponent(txtPedido))
@@ -317,7 +349,7 @@ public class Ticket extends javax.swing.JPanel implements Printable{
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(pnlProductos, javax.swing.GroupLayout.DEFAULT_SIZE, 71, Short.MAX_VALUE)
+                .addComponent(pnlProductos, javax.swing.GroupLayout.DEFAULT_SIZE, 53, Short.MAX_VALUE)
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(9, 9, 9))
@@ -344,6 +376,7 @@ public class Ticket extends javax.swing.JPanel implements Printable{
     private javax.swing.JLabel txtCorreo;
     private javax.swing.JLabel txtDireccion;
     private javax.swing.JLabel txtDireccion4;
+    private javax.swing.JLabel txtFecha;
     private javax.swing.JLabel txtIva;
     private javax.swing.JLabel txtPagina;
     private javax.swing.JLabel txtPago;
