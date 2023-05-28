@@ -523,7 +523,6 @@
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="jLabel8" alignment="0" min="-2" pref="90" max="-2" attributes="0"/>
                                   <Component id="jLabel22" alignment="0" min="-2" pref="321" max="-2" attributes="0"/>
-                                  <Component id="jLabel23" alignment="0" min="-2" pref="223" max="-2" attributes="0"/>
                                   <Group type="102" alignment="0" attributes="0">
                                       <Component id="rbtnSiAlamcen" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
@@ -537,8 +536,9 @@
                                       </Group>
                                       <Component id="jLabel24" alignment="0" min="-2" pref="223" max="-2" attributes="0"/>
                                   </Group>
+                                  <Component id="jLabel23" alignment="0" min="-2" pref="402" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace pref="696" max="32767" attributes="0"/>
+                              <EmptySpace pref="615" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -587,7 +587,7 @@
                     </Component>
                     <Component class="javax.swing.JLabel" name="jLabel23">
                       <Properties>
-                        <Property name="text" type="java.lang.String" value="Mostrar alertas de minimos en almacen"/>
+                        <Property name="text" type="java.lang.String" value="Mostrar alertas de minimos y fechas proximas de caducidad en almacen"/>
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JRadioButton" name="rbtnSiAlamcen">

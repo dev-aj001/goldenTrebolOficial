@@ -318,6 +318,7 @@ public class Venta extends javax.swing.JPanel {
         limpiarTicket();
         LimpiarTxt();
         LimpiarTxt();
+        LimpiarTabla1();
     }//GEN-LAST:event_btnCobrarActionPerformed
 
     private void btnQuitarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuitarActionPerformed

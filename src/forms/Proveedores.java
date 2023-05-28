@@ -8,6 +8,7 @@ import Clases.Validar;
 import bd.ConexionSQL;
 import bd.Proveedor;
 import bd.Usuario;
+import java.awt.Color;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -34,7 +35,7 @@ public class Proveedores extends javax.swing.JPanel {
         tbm.addColumn("Telefono");
         tbm.addColumn("RFC");
         
-        mDB = new ConexionSQL("treboldb", "root", "1234");
+        mDB = new ConexionSQL("treboldb", "root", "C19400437");
         CargarDatos();
     }
 
@@ -50,9 +51,9 @@ public class Proveedores extends javax.swing.JPanel {
         panelShadow1 = new swing.PanelShadow();
         roundPanel1 = new swing.RoundPanel();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        lblCorreo = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
+        lblRFC = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         txtId = new swing.TextField();
@@ -81,17 +82,17 @@ public class Proveedores extends javax.swing.JPanel {
         jLabel1.setText("Nombre");
         roundPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 89, 22));
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel2.setText("Correo");
-        roundPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, 89, -1));
+        lblCorreo.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblCorreo.setText("Correo");
+        roundPanel1.add(lblCorreo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, 89, -1));
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel3.setText("Telefono");
         roundPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 170, 89, -1));
 
-        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel4.setText("RFC");
-        roundPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 219, 89, 25));
+        lblRFC.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblRFC.setText("RFC");
+        roundPanel1.add(lblRFC, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 219, 89, 25));
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel8.setText("Datos del proveedor");
@@ -345,14 +346,22 @@ public class Proveedores extends javax.swing.JPanel {
             return false;
         }else{
             Validar v = new Validar();
-            if(v.RFC(txtRFC.getText()) && v.Email(txtRFC.getText())){
+            if(v.RFC(txtRFC.getText()) && v.Email(txtCorreo1.getText())){
                 return true;
             }else{
-                JOptionPane.showMessageDialog(null, "Algun dato erroneo");
+                if(!v.Email(txtCorreo1.getText())){
+                    lblCorreo.setForeground(Color.red);
+                    JOptionPane.showMessageDialog(null, "Correo no valido");
+                    
+                }
+                if(!v.RFC(txtRFC.getText())){
+                    lblRFC.setForeground(Color.red);
+                    JOptionPane.showMessageDialog(null, "RFC no valido");
+                    
+                }
                 return false;
             }
         }
-        
     }
     
     private boolean esVacio(){
@@ -365,14 +374,14 @@ public class Proveedores extends javax.swing.JPanel {
     private javax.swing.JButton btnModificar;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JLabel lblCorreo;
+    private javax.swing.JLabel lblRFC;
     private swing.PanelShadow panelShadow1;
     private swing.RoundPanel roundPanel1;
     private swing.RoundPanel roundPanel2;

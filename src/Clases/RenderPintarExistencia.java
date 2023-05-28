@@ -16,7 +16,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 
 
-public class RenderPintar extends DefaultTableCellRenderer{
+public class RenderPintarExistencia extends DefaultTableCellRenderer{
     
     private ConexionSQL mDB;
     
@@ -25,7 +25,6 @@ public class RenderPintar extends DefaultTableCellRenderer{
     public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
         
         Component componente = (JLabel)super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-        
         mDB = new ConexionSQL("treboldb", "root", "C19400437");
         
         
@@ -49,10 +48,10 @@ public class RenderPintar extends DefaultTableCellRenderer{
                 alerta = (config.getAlerta()==1);
                 }
         }
+        
         if(alerta){
             if(diffDias<dias){
                 componente.setBackground(new Color(255, 153, 51));
-                
                 if(diffDias<0)
                     componente.setBackground(new Color(255, 51, 51));
             }else{

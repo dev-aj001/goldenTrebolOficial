@@ -20,9 +20,9 @@ import java.time.format.DateTimeFormatter;
  *
  * @author jairi
  */
+//Clase con interfaz printable para porder imprimir
 public class Ticket extends javax.swing.JPanel implements Printable{
 
-    private static String user;
     private ConexionSQL mDB;
     private DateTimeFormatter formatoFecha = DateTimeFormatter.ofPattern("dd/MM/yyy HH:mm");
     
@@ -36,8 +36,8 @@ public class Ticket extends javax.swing.JPanel implements Printable{
     }
     
     private void cargarTicket(){
+        //Carga informacion inicial en el ticket desde la base de datos
         Configurar config;
-        
         
         if(mDB.Conectar()){
             
@@ -57,10 +57,10 @@ public class Ticket extends javax.swing.JPanel implements Printable{
     }
     
     public void agregarProducto(String descripcion, double cantidad, double precio){
+        //Agrega una fila con datos del producto y actualiza el precio en el ticket
         pnlProductos.add(new FilaEditable(descripcion, cantidad, precio));
         pnlProductos.revalidate();
-        
-        
+
         setTotal(precio);
         setIVA();
         setSubtotal();
@@ -68,6 +68,7 @@ public class Ticket extends javax.swing.JPanel implements Printable{
     }
     
     public void quitarProducto(){
+        //Quitar una fila de producto del ticket y reducir el precio en el ticket
         int lastIndex = pnlProductos.getComponentCount() -1;
         FilaEditable fila = (FilaEditable)pnlProductos.getComponent(lastIndex);
         Double precio = Double.parseDouble(fila.getTextoLabel3());
@@ -82,6 +83,7 @@ public class Ticket extends javax.swing.JPanel implements Printable{
     }
     
     private void actualizarFecha(){
+        //Pone la fecha actual al ticket
         LocalDateTime fecha = LocalDateTime.now();
         String fechaFormated = fecha.format(formatoFecha);
         txtFecha.setText(fechaFormated);
@@ -104,6 +106,7 @@ public class Ticket extends javax.swing.JPanel implements Printable{
     }
     
     public void limpiar(){
+        //Quita todos los productos del ticket
         int lastIndex = pnlProductos.getComponentCount();
         
         while (lastIndex>0) {
