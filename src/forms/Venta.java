@@ -24,6 +24,8 @@ import javax.swing.table.DefaultTableModel;
  * @author jairi
  */
 public class Venta extends javax.swing.JPanel {
+    
+    private static Venta instance;
 
     private ConexionSQL mDB;
     private DefaultTableModel tbm1;
@@ -31,12 +33,20 @@ public class Venta extends javax.swing.JPanel {
     
     DecimalFormat formato = new DecimalFormat("0.00");
     
-    public Venta() {
+    private Venta() {
         initComponents();
         mDB = new ConexionSQL("treboldb", "root", "C19400437");
         init();
         initTabla1();
         initTabla2();
+    }
+    
+    public static Venta getInstance(){
+        if (instance == null){
+            instance = new Venta();
+        }
+        
+        return instance;
     }
     
     private void init(){

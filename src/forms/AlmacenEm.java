@@ -23,17 +23,26 @@ import javax.swing.table.DefaultTableModel;
 public class AlmacenEm extends javax.swing.JPanel {
 
     //Variables globales
+    private static AlmacenEm instance;
+    
     private ConexionSQL mDB;
     private DefaultTableModel tbm;
     private LocalDate fechaActual;
     
-    public AlmacenEm() {
+    private AlmacenEm() {
         initComponents();
         setOpaque(false);
         
         initConexion();
         init();
         tabla.getColumnModel().getColumn(4).setCellRenderer(new RenderPintar());
+    }
+    
+    public static AlmacenEm getInstance(){
+        if(instance == null){
+            instance = new AlmacenEm();
+        }
+        return instance;
     }
     
     private void initConexion(){

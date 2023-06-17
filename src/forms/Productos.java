@@ -23,6 +23,8 @@ import javax.swing.table.DefaultTableModel;
  * @author jairi
  */
 public class Productos extends javax.swing.JPanel {
+    
+    private static Productos instance;
 
     private Double costo = 0d;
     private Double venta = 0d;
@@ -34,13 +36,20 @@ public class Productos extends javax.swing.JPanel {
     private LocalDate fechaActual;
     
     
-    public Productos() {
+    private Productos() {
         initComponents();
         mDB = new ConexionSQL("treboldb", "root", "C19400437");
         init();
         initTabla();
         setFechaActual();
         tabla.getColumnModel().getColumn(7).setCellRenderer(new RenderPintar());
+    }
+    
+    public static Productos getInstance(){
+        if (instance == null){
+            instance = new Productos();
+        }
+        return instance;
     }
     
     private void initTabla(){

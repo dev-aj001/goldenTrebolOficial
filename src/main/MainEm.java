@@ -34,15 +34,15 @@ public class MainEm extends javax.swing.JFrame {
             @Override
             public void Selectd(int index) {
                 if(index==0){
-                    showForm(new Venta());
+                    showForm(Venta.getInstance());
                 }else if(index==1){
-                    showForm(new Productos());
+                    showForm(Productos.getInstance());
                 }else if(index==2){
-                    showForm(new AlmacenEm());
+                    showForm(AlmacenEm.getInstance());
                 }else if(index==3){
-                    showForm(new Caja());
+                    showForm(Caja.getInstance());
                 }else if(index==4){
-                    showForm(new ConfiguracionEm());
+                    showForm(ConfiguracionEm.getInstance());
                 }
             }
         };
@@ -51,7 +51,7 @@ public class MainEm extends javax.swing.JFrame {
         scrollPane.setVerticalScrollBar(new ScrollBarCustom());
         scrollPane.getViewport().setOpaque(false);
         scrollPane.setViewportBorder(null);
-        showForm(new Venta());
+        showForm(Venta.getInstance());
         
     }
 

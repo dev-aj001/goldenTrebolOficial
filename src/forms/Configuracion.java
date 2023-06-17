@@ -15,6 +15,8 @@ import javax.swing.JOptionPane;
  */
 public class Configuracion extends javax.swing.JPanel {
 
+    private static Configuracion instance;
+    
     private static String user;
     private ConexionSQL mDB;
     
@@ -26,6 +28,13 @@ public class Configuracion extends javax.swing.JPanel {
         
         initRadioButons();
         cargarConfig();
+    }
+    
+    public static Configuracion getInstance(String user){
+        if(instance == null){
+            instance = new Configuracion(user);
+        }
+        return instance;
     }
     
     public void aplicarCambios(){

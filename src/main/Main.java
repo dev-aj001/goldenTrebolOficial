@@ -32,17 +32,17 @@ public class Main extends javax.swing.JFrame {
             @Override
             public void Selectd(int index) {
                 if(index==0){
-                    showForm(new Dashboard());
+                    showForm(Dashboard.getInstance());
                 }else if(index==1){
-                    showForm(new Empleados());
+                    showForm(Empleados.getInstance());
                 }else if(index==2){
-                    showForm(new Proveedores());
+                    showForm(Proveedores.getInstance());
                 }else if(index==3){
-                    showForm(new Productos());
+                    showForm(Productos.getInstance());
                 }else if(index==4){
-                    showForm(new Almacen());
+                    showForm(Almacen.getInstance());
                 }else if(index==5){
-                    showForm(new Configuracion(user));
+                    showForm(Configuracion.getInstance(user));
                 }
             }
         };
@@ -51,7 +51,7 @@ public class Main extends javax.swing.JFrame {
         scrollPane.setVerticalScrollBar(new ScrollBarCustom());
         scrollPane.getViewport().setOpaque(false);
         scrollPane.setViewportBorder(null);
-        showForm(new Dashboard());
+        showForm(Dashboard.getInstance());
     }
 
     private void showForm(Component com){
